@@ -236,7 +236,7 @@
         </section>
     </main>
 
-    <!-- SLIDE-OVER DRAWER DETAILES & SIMULATOR -->
+    <!-- SLIDE-OVER DRAWER DETAILES -->
     <div id="detail-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
         <div class="absolute inset-0 overflow-hidden">
             <!-- Overlay -->
@@ -262,7 +262,7 @@
                             </div>
                         </div>
                         
-                        <!-- Ringkasan Poket Kewangan -->
+                        <!-- Ringkasan Poket Kewangan Sebenar -->
                         <div class="grid grid-cols-2 gap-3">
                             <div class="bg-indigo-50/50 border border-indigo-100 p-4 rounded-2xl">
                                 <span class="text-[10px] text-indigo-500 font-extrabold uppercase tracking-wider block">Telah Dibayar</span>
@@ -285,35 +285,7 @@
                             </div>
                         </div>
 
-                        <!-- BAHAGIAN SIMULASI UNTUK BENDAHARI -->
-                        <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[11px] font-extrabold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-indigo-600"></i> Simulasi Bayaran Baru
-                                </span>
-                                <button onclick="resetSimulation()" class="text-[10px] text-indigo-600 font-extrabold uppercase hover:underline">Asal (Asli)</button>
-                            </div>
-                            
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-xs font-bold text-slate-700">
-                                    <span>Masukkan Amaun Bayaran</span>
-                                    <span class="text-indigo-600 text-sm font-extrabold" id="sim-input-val-display">RM 0</span>
-                                </div>
-                                <input type="range" id="sim-payment-slider" min="0" max="300" step="5" value="0" oninput="runSimulation(this.value)" class="w-full accent-indigo-600 cursor-ew-resize">
-                                <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase">
-                                    <span>RM 0</span>
-                                    <span>RM 150</span>
-                                    <span>RM 300</span>
-                                </div>
-                            </div>
-
-                            <div class="text-[11px] text-slate-500 font-semibold bg-white p-3 rounded-xl border border-slate-100 leading-relaxed">
-                                <span class="font-extrabold text-indigo-600 uppercase tracking-wider block mb-1">Status Aliran Bayaran:</span>
-                                <span id="sim-log-text">Sila selaraskan bar untuk simulasi bayaran.</span>
-                            </div>
-                        </div>
-
-                        <!-- JADUAL PECAHAN BULANAN JAN-OKT -->
+                        <!-- JADUAL PECAHAN BULANAN JAN-OKT SEBENAR -->
                         <div>
                             <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block mb-3">Pecahan Alokasi Yuran Semasa (Jan-Okt)</span>
                             <div id="detail-months-container" class="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -623,11 +595,11 @@
             document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
         }
 
-        // Bahagian simulasi dan pengagihan yuran bulanan (Jan-Okt)
-        function generateDynamicMonthsPaid(member, simulateAmount = null) {
+        // Bahagian pengagihan yuran bulanan (Jan-Okt) yang dipermudahkan
+        function generateDynamicMonthsPaid(member) {
             const name = member.nama.toUpperCase();
             const cat = member.kategori;
-            const totalPaid = simulateAmount !== null ? simulateAmount : member.total;
+            const totalPaid = member.total;
             const baki2025 = member.baki_2025 || 0;
             const rate = (cat === "Guru") ? 20 : 15;
             
@@ -704,15 +676,9 @@
             } else {
                 noticeBox.classList.add('hidden');
             }
-
-            // Set semula slider simulasi bayaran mengikut nilai asal yuran ahli
-            const slider = document.getElementById('sim-payment-slider');
-            slider.max = Math.max(300, target + 50);
-            slider.value = member.total;
-            document.getElementById('sim-input-val-display').innerText = `RM ${member.total}`;
             
-            // Render pecahan yuran
-            updateMonthsContainer(member, member.total);
+            // Render pecahan yuran semasa sebenar ahli
+            updateMonthsContainer(member);
 
             const drawer = document.getElementById('detail-drawer');
             const drawerContainer = document.getElementById('drawer-container');
@@ -725,52 +691,8 @@
             lucide.createIcons();
         }
 
-        function runSimulation(val) {
-            const numericVal = parseFloat(val);
-            document.getElementById('sim-input-val-display').innerText = `RM ${numericVal}`;
-            
-            const member = members.find(m => m.bil === currentOpenBil);
-            if (!member) return;
-
-            const target = member.target_override;
-            const baki2025 = member.baki_2025 || 0;
-            const logEl = document.getElementById('sim-log-text');
-            
-            // Hitung pecahan simulasi baru
-            updateMonthsContainer(member, numericVal);
-
-            // Logik Penerangan Simulasi
-            let logMsg = "";
-            if (baki2025 > 0) {
-                if (numericVal < baki2025) {
-                    logMsg = `RM ${numericVal} diperuntukkan sepenuhnya untuk mengurangkan Tunggakan Yuran 2025 (RM ${baki2025}). Tiada baki disalurkan ke yuran semasa 2026.`;
-                } else {
-                    const bakiAktif = numericVal - baki2025;
-                    logMsg = `RM ${baki2025} pertama berjaya melunaskan Tunggakan 2025 sepenuhnya. Baki baki RM ${bakiAktif} disalurkan ke yuran bulanan 2026.`;
-                }
-            } else {
-                logMsg = `RM ${numericVal} diagihkan sama rata untuk yuran semasa 2026 (${member.kategori === 'Guru' ? 'RM 20' : 'RM 15'}/bulan).`;
-            }
-
-            if (numericVal >= target) {
-                logMsg += ` <strong class="text-emerald-600 block mt-1">Status: Lunas Sepenuhnya (RM ${numericVal}/${target})!</strong>`;
-            } else if (numericVal > 0) {
-                logMsg += ` <strong class="text-amber-600 block mt-1">Status: Selesai Separa (RM ${numericVal}/${target}). Berbaki RM ${Math.max(0, target - numericVal)} lagi.</strong>`;
-            }
-
-            logEl.innerHTML = logMsg;
-        }
-
-        function resetSimulation() {
-            const member = members.find(m => m.bil === currentOpenBil);
-            if (!member) return;
-            const slider = document.getElementById('sim-payment-slider');
-            slider.value = member.total;
-            runSimulation(member.total);
-        }
-
-        function updateMonthsContainer(member, totalToUse) {
-            const monthsData = generateDynamicMonthsPaid(member, totalToUse);
+        function updateMonthsContainer(member) {
+            const monthsData = generateDynamicMonthsPaid(member);
             const monthsContainer = document.getElementById('detail-months-container');
             monthsContainer.innerHTML = '';
 
