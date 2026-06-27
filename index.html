@@ -3,237 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kelab Kebajikan SASERA 2026</title>
-    <!-- Tailwind CSS for high-fidelity UI -->
+    <title>Dashboard Kebajikan SASERA 2026</title>
+    <!-- Tailwind CSS untuk reka bentuk berkualiti tinggi -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons for modern iconography -->
+    <!-- Lucide Icons untuk ikonografi moden -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        sasera: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            200: '#bae0fd',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            800: '#0c4a6e',
-                            900: '#0f172a'
-                        }
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Mengemas scrollbar agar kelihatan lebih minimalis */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 </head>
-<body class="h-full text-slate-800 flex flex-col antialiased">
+<body class="h-full text-slate-800 flex flex-col antialiased bg-slate-50">
 
-    <!-- TOP HEADER / BANNER -->
-    <header class="bg-gradient-to-r from-sasera-800 via-sasera-700 to-indigo-950 text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="bg-sky-500 text-white text-xs px-2.5 py-0.5 rounded-full font-bold tracking-wider">SASERA 2026</span>
-                        <span class="text-xs text-sky-200 font-medium">SK SATU SULTAN ALAM SHAH</span>
-                    </div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-serif">Satu Sultan Alam Shah Erat dan Rahmah</h1>
-                    <p class="text-sm text-sky-100 mt-1 font-sans">Sistem Semakan Tunggakan & Pengurusan Yuran Kebajikan Ahli (Yuran 10 Bulan)</p>
+    <!-- TOP SLICK HEADER -->
+    <header class="border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
                 </div>
-                <div class="flex flex-wrap gap-2 items-center">
-                    <div id="sync-badge" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 border border-white/20 text-white">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                        <span id="sync-status-text">Memuatkan data...</span>
-                    </div>
+                <div>
+                    <h1 class="text-sm font-bold tracking-tight text-slate-900 uppercase">
+                        SASERA 2026 YURAN
+                    </h1>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider">Sk Satu Sultan Alam Shah // Erat & Rahmah</p>
+                </div>
+            </div>
+
+            <!-- STATUS PENYELARASAN GOOGLE SHEET -->
+            <div class="flex items-center gap-3">
+                <button onclick="syncFromAPI()" class="p-2 rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-600 transition active:scale-95 group" title="Segerakkan Google Sheet">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 group-hover:rotate-180 transition duration-500"></i>
+                </button>
+                <div id="sync-badge" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-semibold text-slate-600">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="status-indicator-dot"></span>
+                    <span id="sync-status-text">Menghubung...</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-        
-        <!-- ERROR API NOTICE (Hidden by default) -->
-        <div id="api-error-banner" class="hidden bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-xl flex gap-3 items-start shadow-sm">
-            <i data-lucide="alert-octagon" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
-            <div>
-                <h3 class="text-sm font-bold text-rose-800">Ralat Pengambilan Data Google Sheet</h3>
-                <p class="text-xs text-rose-700 mt-1" id="api-error-message">Gagal menghubungi Google Apps Script API. Sila pastikan anda telah melakukan 'Deploy' dengan akses 'Anyone'.</p>
-            </div>
-        </div>
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
 
-        <!-- FEE STRUCTURE CARD -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-gradient-to-br from-sky-50 to-sky-100/50 border border-sky-200/60 p-5 rounded-2xl flex gap-4 items-start shadow-sm">
-                <div class="p-3 bg-sky-500 text-white rounded-xl">
-                    <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <!-- KAD RINGKASAN METRIK -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- JUMLAH AHLI -->
+            <div class="bg-white border border-slate-200/80 p-5 rounded-2xl relative overflow-hidden shadow-sm">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Jumlah Ahli</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-total">0</h3>
+                    <span class="text-[11px] text-slate-500 font-medium" id="kpi-breakdown">0 Guru | 0 AKP</span>
                 </div>
-                <div>
-                    <h3 class="text-sm font-bold text-sky-900">Kadar Yuran Guru (10 Bulan)</h3>
-                    <p class="text-xs text-sky-700 mt-1">RM 20 sebulan × 10 bulan = <strong class="text-sm font-extrabold text-sky-900">RM 200 / tahun</strong></p>
-                    <span class="inline-block mt-2 text-[10px] bg-sky-200/50 text-sky-800 px-2 py-0.5 rounded font-medium">Jan hingga Okt 2026</span>
-                </div>
-            </div>
-            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100/50 border border-indigo-200/60 p-5 rounded-2xl flex gap-4 items-start shadow-sm">
-                <div class="p-3 bg-indigo-600 text-white rounded-xl">
-                    <i data-lucide="briefcase" class="w-6 h-6"></i>
-                </div>
-                <div>
-                    <h3 class="text-sm font-bold text-indigo-900">Kadar Yuran AKP (10 Bulan)</h3>
-                    <p class="text-xs text-indigo-700 mt-1">RM 15 sebulan × 10 bulan = <strong class="text-sm font-extrabold text-indigo-900">RM 150 / tahun</strong></p>
-                    <span class="inline-block mt-2 text-[10px] bg-indigo-200/50 text-indigo-800 px-2 py-0.5 rounded font-medium">Noramira (Masuk Mac): RM 120/tahun | Nuur Sharizah (Pindah)</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- STATS / KPI CARDS -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- 1. Total Members -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
-                <div>
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Jumlah Ahli Aktif</span>
-                    <h3 class="text-3xl font-bold text-slate-800 mt-1" id="kpi-total">0</h3>
-                    <p class="text-xs text-slate-500 mt-1" id="kpi-breakdown">0 Guru | 0 AKP aktif</p>
-                </div>
-                <div class="p-3.5 bg-sky-50 rounded-xl text-sky-600">
-                    <i data-lucide="users" class="w-7 h-7"></i>
+                <div class="w-full bg-slate-100 h-[3px] mt-4 rounded-full overflow-hidden">
+                    <div class="bg-indigo-500 h-full w-full"></div>
                 </div>
             </div>
 
-            <!-- 2. Selesai Berbayar -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
-                <div>
-                    <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Lunas Sepenuhnya</span>
-                    <h3 class="text-3xl font-bold text-emerald-600 mt-1" id="kpi-selesai">0</h3>
-                    <p class="text-xs text-emerald-600/80 mt-1" id="kpi-selesai-percent">0% daripada ahli</p>
+            <!-- SELESAI BAYAR -->
+            <div class="bg-white border border-slate-200/80 p-5 rounded-2xl relative overflow-hidden shadow-sm">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Lunas Sepenuhnya</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <h3 class="text-2xl font-bold text-emerald-600" id="kpi-selesai">0</h3>
+                    <span class="text-[11px] text-slate-500 font-medium" id="kpi-selesai-percent">0%</span>
                 </div>
-                <div class="p-3.5 bg-emerald-50 rounded-xl text-emerald-600">
-                    <i data-lucide="check-circle" class="w-7 h-7"></i>
-                </div>
-            </div>
-
-            <!-- 3. Bayaran Separa -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
-                <div>
-                    <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Bayaran Separa</span>
-                    <h3 class="text-3xl font-bold text-amber-600 mt-1" id="kpi-separa">0</h3>
-                    <p class="text-xs text-amber-500 mt-1">Sedang mencicil yuran</p>
-                </div>
-                <div class="p-3.5 bg-amber-50 rounded-xl text-amber-600">
-                    <i data-lucide="clock" class="w-7 h-7"></i>
+                <div class="w-full bg-slate-100 h-[3px] mt-4 rounded-full overflow-hidden">
+                    <div id="kpi-selesai-bar" class="bg-emerald-500 h-full transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
 
-            <!-- 4. Belum Mula / Tunggakan -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
-                <div>
-                    <span class="text-xs font-semibold text-rose-600 uppercase tracking-wider">Tiada Bayaran</span>
-                    <h3 class="text-3xl font-bold text-rose-600 mt-1" id="kpi-tunggakan">0</h3>
-                    <p class="text-xs text-rose-500 mt-1">Belum membuat bayaran</p>
+            <!-- BAKI TUNGGAKAN -->
+            <div class="bg-white border border-slate-200/80 p-5 rounded-2xl relative overflow-hidden shadow-sm">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Baki Tunggakan</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <h3 class="text-2xl font-bold text-rose-600" id="kpi-tunggakan-rm">RM 0</h3>
+                    <span class="text-[11px] text-slate-500 font-medium" id="kpi-tunggakan-count">0 Orang</span>
                 </div>
-                <div class="p-3.5 bg-rose-50 rounded-xl text-rose-600">
-                    <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+                <div class="w-full bg-slate-100 h-[3px] mt-4 rounded-full overflow-hidden">
+                    <div id="kpi-tunggakan-bar" class="bg-rose-500 h-full transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- JUMLAH KUTIPAN -->
+            <div class="bg-white border border-slate-200/80 p-5 rounded-2xl relative overflow-hidden shadow-sm">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Kutipan Terkumpul</span>
+                <div class="flex items-baseline gap-1 mt-2">
+                    <h3 class="text-2xl font-bold text-slate-900" id="kpi-collected-rm">RM 0</h3>
+                    <span class="text-[10px] text-slate-500 font-medium" id="kpi-target-rm">/ RM 0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-[3px] mt-4 rounded-full overflow-hidden">
+                    <div id="overall-progress-bar" class="bg-slate-800 h-full transition-all duration-1000" style="width: 0%"></div>
                 </div>
             </div>
         </section>
 
-        <!-- SEARCH, FILTERS & ACTION BAR -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div class="relative w-full md:max-w-md">
-                <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                <input type="text" id="search-bar" oninput="applyFilters()" placeholder="Cari nama guru, AKP atau status..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+        <!-- CARIAN & PENAPIS MINIMALIS -->
+        <section class="flex flex-col md:flex-row gap-3 items-center justify-between">
+            <!-- KOTAK CARIAN -->
+            <div class="relative w-full md:max-w-md group">
+                <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 transition"></i>
+                <input type="text" id="search-bar" oninput="applyFilters()" placeholder="Cari nama atau kategori..." class="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition placeholder:text-slate-400">
             </div>
 
+            <!-- BUTANG PENAPIS -->
             <div class="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
-                <button onclick="filterStatus('semua', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-sasera-800 text-white shadow-sm">Semua</button>
-                <button onclick="filterStatus('Guru', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">👨‍🏫 GURU</button>
-                <button onclick="filterStatus('AKP', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">💼 AKP</button>
-                <button onclick="filterStatus('Selesai', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">🟢 Lunas</button>
-                <button onclick="filterStatus('Separa', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">🟡 Separa</button>
-                <button onclick="filterStatus('Pindah', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">✈️ Pindah</button>
+                <button onclick="filterStatus('semua', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-indigo-600 text-white shadow-sm">Semua</button>
+                <button onclick="filterStatus('Guru', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">Guru</button>
+                <button onclick="filterStatus('AKP', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">AKP</button>
+                <button onclick="filterStatus('Selesai', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">Lunas</button>
+                <button onclick="filterStatus('Separa', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">Separa</button>
+                <button onclick="filterStatus('Tunggakan', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">Belum Bayar</button>
+                
+                <button onclick="exportToCSV()" class="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-slate-800 transition ml-auto md:ml-2" title="Eksport Fail CSV">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
             </div>
         </section>
 
-        <!-- DATA TABLE -->
-        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <!-- JADUAL SENARAI AHLI -->
+        <section class="bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-slate-50/70 border-b border-slate-200 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                            <th class="py-4 px-6 text-center w-16">BIL</th>
-                            <th class="py-4 px-6">NAMA AHLI KELAB</th>
-                            <th class="py-4 px-6 text-center">KATEGORI</th>
-                            <th class="py-4 px-6 text-center">BAYARAN (RM)</th>
-                            <th class="py-4 px-6 text-center">STATUS</th>
-                            <th class="py-4 px-6">PROGRESS SASARAN</th>
-                            <th class="py-4 px-6 text-center w-24">TINDAKAN</th>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 text-[11px] font-bold uppercase tracking-wider">
+                            <th class="py-3 px-6 text-center w-16">No.</th>
+                            <th class="py-3 px-6">Nama Ahli</th>
+                            <th class="py-3 px-6 text-center">Kategori</th>
+                            <th class="py-3 px-6 text-center">Jumlah Bayaran</th>
+                            <th class="py-3 px-6 text-center">Sasaran</th>
+                            <th class="py-3 px-6 text-center">Kemajuan</th>
+                            <th class="py-3 px-6 text-center">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="table-body" class="divide-y divide-slate-100 text-sm">
-                        <!-- Table rows injected via JS -->
+                    <tbody id="table-body" class="divide-y divide-slate-100 text-sm text-slate-600">
+                        <!-- Kandungan dinamik dijana dari JavaScript -->
                     </tbody>
                 </table>
             </div>
 
-            <div class="bg-slate-50/50 px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                <div>Menunjukkan <span id="showing-count" class="font-bold text-slate-700">0</span> daripada <span id="total-count" class="font-bold text-slate-700">0</span> rekod</div>
+            <!-- TABLE STATUS BAR -->
+            <div class="bg-slate-50/50 px-6 py-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
+                <div>Jumlah Rekod: <span id="showing-count" class="text-indigo-600">0</span> / <span id="total-count" class="text-slate-500">0</span></div>
+                <div class="flex items-center gap-1.5 text-emerald-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Sedia Dipaparkan</span>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs mt-auto">
-        <p>© 2026 Satu Sultan Alam Shah Erat dan Rahmah (SASERA). Dibangunkan untuk kemudahan Bendahari.</p>
-    </footer>
+    <!-- SLIDE-OVER DRAWER (Butiran Profil Kewangan Ahli) -->
+    <div id="detail-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- Latar belakang gelap lutsinar -->
+            <div onclick="closeDrawer()" class="absolute inset-0 bg-slate-900/30 backdrop-blur-sm transition-opacity duration-300"></div>
 
-    <!-- UPDATE PAYMENT MODAL -->
-    <div id="payment-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-slate-100">
-            <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 text-white p-6">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-bold">Kemaskini Rekod Bayaran (Lokal)</h3>
-                    <button onclick="closePaymentModal()" class="text-white/80 hover:text-white transition">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <p id="modal-member-name" class="text-sm text-emerald-100 mt-1 font-semibold"></p>
-                <span id="modal-member-category" class="inline-block mt-1 text-[11px] bg-emerald-900/40 px-2 py-0.5 rounded font-bold"></span>
-            </div>
-            <div class="p-6 space-y-4">
-                <p class="text-xs text-rose-500 font-medium">Nota: Kemaskini di sini adalah sementara untuk rujukan pantas. Disarankan untuk menukar terus di Google Sheet utama.</p>
-                <input type="hidden" id="edit-member-index">
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Jumlah Bayaran Baharu (RM)</label>
-                    <input type="number" id="edit-member-paid" min="0" max="200" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
-                </div>
-                <div class="bg-slate-50 p-3 rounded-xl border border-slate-150">
-                    <p class="text-xs text-slate-500 font-medium">Baki perlu dijelaskan:</p>
-                    <p class="text-lg font-extrabold text-slate-800 mt-0.5" id="modal-remaining-text">RM 0</p>
-                </div>
-                <div class="flex gap-2 pt-2">
-                    <button onclick="closePaymentModal()" class="flex-1 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-50 transition">Batal</button>
-                    <button onclick="savePaymentChanges()" class="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 shadow-lg shadow-emerald-600/10 transition">Kemaskini</button>
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <!-- Panel Profil -->
+                <div class="pointer-events-auto w-screen max-w-md transform bg-white border-l border-slate-200 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 translate-x-full" id="drawer-container">
+                    
+                    <div class="space-y-6">
+                        <!-- Drawer Header -->
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] bg-indigo-50 text-indigo-600 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">Penyata Ahli</span>
+                            <button onclick="closeDrawer()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition">
+                                <i data-lucide="x" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Nama Ahli -->
+                        <div>
+                            <h3 id="detail-member-name" class="text-base font-bold tracking-tight text-slate-900 uppercase">Memuatkan...</h3>
+                            <div class="flex gap-1.5 mt-2">
+                                <span id="detail-member-cat" class="text-[10px] bg-slate-100 px-2 py-0.5 rounded text-slate-500 uppercase font-bold tracking-wider"></span>
+                                <span id="detail-member-status" class="text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wider"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Metrik Ringkas Kewangan -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Telah Dibayar</span>
+                                <p id="detail-member-total" class="text-lg font-bold text-slate-950 mt-1">RM 0</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Baki Tunggakan</span>
+                                <p id="detail-member-arrears" class="text-lg font-bold text-rose-500 mt-1 font-semibold">RM 0</p>
+                            </div>
+                        </div>
+
+                        <!-- KOTAK NOTA TUNGGAKAN KHAS SHAHIRA AINA -->
+                        <div id="detail-notice-box" class="hidden bg-rose-50 border border-rose-100 p-4 rounded-xl flex items-start gap-3">
+                            <i data-lucide="alert-circle" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-[10px] font-bold text-rose-600 uppercase tracking-wider">Tunggakan Tahun Lepas</span>
+                                <p class="text-xs text-rose-700 mt-1">Baki yuran tertunggak bagi tahun 2025 yang belum dijelaskan adalah sebanyak <strong class="text-rose-900">RM 80.00</strong>. Sasaran dilaraskan kepada <strong class="text-rose-900">RM 280.00</strong> (RM200 standard + RM80 baki 2025).</p>
+                            </div>
+                        </div>
+
+                        <!-- JADUAL PECAHAN 10 BULAN -->
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-3">Pecahan Yuran Bulanan (Jan-Okt)</span>
+                            <div id="detail-months-container" class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                                <!-- Kod kotak-kotak bulan dijana dari JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Drawer Footer -->
+                    <div class="border-t border-slate-100 pt-4">
+                        <button onclick="closeDrawer()" class="w-full py-2.5 bg-slate-900 text-white hover:bg-slate-800 font-semibold rounded-xl text-xs uppercase tracking-wider transition">
+                            Tutup Butiran
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ALERTS / NOTIFICATIONS CONTAINER -->
-    <div id="notification-toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition translate-y-20 opacity-0 z-50">
-        <i data-lucide="info" class="w-4 h-4 text-sky-400" id="toast-icon"></i>
-        <span class="text-xs font-semibold" id="toast-message">Mesej Notifikasi</span>
+    <!-- NOTIFIKASI TOAST -->
+    <div id="notification-toast" class="fixed bottom-6 right-6 bg-slate-950 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform transition duration-300 translate-y-20 opacity-0 z-50">
+        <i data-lucide="info" class="w-4 h-4 text-indigo-400" id="toast-icon"></i>
+        <span class="text-xs font-medium tracking-wide" id="toast-message">Mesej Sistem</span>
     </div>
 
-    <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
-        // Apps Script URL yang baharu diberikan oleh pengguna
-        const API_URL = "https://script.google.com/macros/s/AKfycbxCIAEn8jDisgdL0MwceKysIn2gHnfUZJDa7V3LjJ5ttIxYXhOf6Dv1aNCiVxK-TkX7/exec";
+        // Logik URL Google Apps Script Web App
+        const API_URL = "https://script.google.com/macros/s/AKfycbccZbTaSyXzjBKBPPOUduM0rCWI6eUSs7WUFCwSR_r7Gz8VMn3PH7SZZ17ZYafCSoA/exec";
 
-        // Data Sandaran (Fallback) sekiranya tiada internet atau ralat API
-        let members = [
+        // Senarai data penuh ahli dari rekod Google Sheet anda
+        const fallbackMembers = [
             { bil: 1, nama: "MOHD RAHAIZAT BIN RAHAMAN", kategori: "Guru", total: 200, status: "Selesai" },
             { bil: 2, nama: "ROSNANI BINTI MOHAMED ARUS", kategori: "Guru", total: 100, status: "Separa" },
             { bil: 3, nama: "YUSLAINI SAPARIMIN @ YUKIRIN", kategori: "Guru", total: 100, status: "Separa" },
@@ -243,7 +272,7 @@
             { bil: 7, nama: "ADAM AZHARI BIN MUHAMAD SUBRI", kategori: "Guru", total: 40, status: "Separa" },
             { bil: 8, nama: "AFIQAH BINTI ADAM MALEK", kategori: "Guru", total: 0, status: "Tunggakan" },
             { bil: 9, nama: "AHMAD HANAFI BIN ABDUL ALIM", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 10, nama: "AINUR RUZAINAH BINTI ABDULLAH", kategori: "Guru", total: 51, status: "Separa" },
+            { bil: 10, nama: "AINUR RUZAINAH BINTI ABDULLAH", kategori: "Guru", total: 105, status: "Separa" },
             { bil: 11, nama: "AZIZAH BINTI ABDUL WAHAB @ALI", kategori: "Guru", total: 200, status: "Selesai" },
             { bil: 12, nama: "INTAN NORSYAFIQAH BINTI ZAHID", kategori: "Guru", total: 160, status: "Separa" },
             { bil: 13, nama: "IQBAL AFANDI BIN MAHMUD ALIUDIN", kategori: "Guru", total: 20, status: "Separa" },
@@ -279,143 +308,194 @@
             { bil: 43, nama: "ZURIYATI BINTI DOLLAH", kategori: "Guru", total: 100, status: "Separa" },
             { bil: 44, nama: "MARLIA BINTI MOHAMED", kategori: "AKP", total: 45, status: "Separa" },
             { bil: 45, nama: "NAZIRA BINTI RAMLI", kategori: "AKP", total: 15, status: "Separa" },
+            { bil: 48, nama: "NORAMIRA BINTI IDRIS", kategori: "AKP", total: 60, status: "Separa" },
             { bil: 46, nama: "NORDIANA BINTI NORDIN", kategori: "AKP", total: 60, status: "Separa" },
             { bil: 47, nama: "NUR AMIERA BINTI MOHD SULAIMI", kategori: "AKP", total: 60, status: "Separa" },
-            { bil: 48, nama: "NORAMIRA BINTI IDRIS", kategori: "AKP", total: 60, status: "Separa" }, 
             { bil: 49, nama: "SITI HIDAYAH BINTI HIDI", kategori: "AKP", total: 110, status: "Separa" },
             { bil: 50, nama: "SITI NASMASYURAH BINTI MOHAMAD RUZUKI", kategori: "AKP", total: 90, status: "Separa" },
             { bil: 51, nama: "NUUR SHARIZAH BINTI MOHD DOM", kategori: "AKP", total: 30, status: "Pindah" } 
         ];
 
+        const MONTHS = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEP", "OKT"];
+
+        let members = [];
         let activeFilter = 'semua';
-        
-        // Helper to get target fee dynamically
+        let currentOpenBil = null;
+
+        // Logik pengiraan sasaran secara dinamik mengikut baki 2025 dan status ahli
         function getTargetFee(kategori, nama = "") {
-            if (!nama) return kategori === 'Guru' ? 200 : 150;
-            const upperName = nama.toUpperCase();
+            const upperName = (nama || "").toUpperCase();
             if (upperName.includes("NUUR SHARIZAH")) {
-                const found = members.find(m => m.nama && m.nama.toUpperCase().includes("NUUR SHARIZAH"));
-                return found ? found.total : 30; 
+                return 30; 
             }
             if (upperName.includes("NORAMIRA") && upperName.includes("IDRIS")) {
-                return 120; 
+                return 120; // Kemasukan Mac (8 bulan)
             }
             if (upperName.includes("NUR SHAHIRA AINA")) {
-                return 280; // RM200 (Yuran 2026) + RM80 (Baki 2025)
+                return 280; // RM200 yuran semasa + RM80 tunggakan 2025
             }
             return kategori === 'Guru' ? 200 : 150;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            initDashboard();
+            loadDatabase();
             lucide.createIcons();
-            syncFromAPI(); // Auto-sync on launch
+            syncFromAPI();
         });
+
+        // Memuatkan pangkalan data dengan data sandaran
+        function loadDatabase() {
+            const stored = localStorage.getItem('sasera_2026_cache_light');
+            if (stored) {
+                try {
+                    members = JSON.parse(stored);
+                } catch(e) {
+                    members = initDefaultData(fallbackMembers);
+                }
+            } else {
+                members = initDefaultData(fallbackMembers);
+                saveToLocalStorage();
+            }
+            initDashboard();
+        }
+
+        function initDefaultData(rawArray) {
+            return rawArray.map(m => {
+                const target = getTargetFee(m.kategori, m.nama);
+                return {
+                    bil: m.bil,
+                    nama: m.nama.toUpperCase(),
+                    kategori: m.kategori,
+                    total: m.total,
+                    status: m.status,
+                    target_override: target
+                };
+            });
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('sasera_2026_cache_light', JSON.stringify(members));
+        }
 
         function initDashboard() {
             renderTable(members);
             updateKPIs();
         }
 
-        // Fetch data secara langsung dari Apps Script API pengguna
+        // Penyelarasan langsung dari API Google Apps Script
         async function syncFromAPI() {
             const badge = document.getElementById('sync-badge');
             const statusText = document.getElementById('sync-status-text');
-            const errorBanner = document.getElementById('api-error-banner');
+            const dot = document.getElementById('status-indicator-dot');
             
-            badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/10 border border-amber-500/30 text-amber-500";
-            statusText.innerText = "Menghubungkan...";
-            errorBanner.classList.add('hidden');
+            badge.className = "flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-semibold text-slate-600";
+            dot.className = "w-2 h-2 rounded-full bg-amber-500 animate-pulse";
+            statusText.innerText = "Menghubung...";
 
             try {
-                // Fetch data dari Google Web App API
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error("Gagal mengambil respon dari pelayan API Google");
-                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000); 
+
+                const response = await fetch(API_URL, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (!response.ok) throw new Error("Gagal");
                 const json = await response.json();
                 
                 if (json.status === "success" && json.data) {
-                    members = json.data;
+                    members = json.data.map(m => ({
+                        bil: m.bil,
+                        nama: m.nama.toUpperCase(),
+                        kategori: m.kategori,
+                        total: m.total,
+                        status: m.status,
+                        target_override: m.target_override || getTargetFee(m.kategori, m.nama)
+                    }));
+                    
+                    saveToLocalStorage();
                     initDashboard();
                     
-                    badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-500";
-                    statusText.innerText = "Terkini (Live)";
-                    showToast("Penyelarasan Data Google Sheet Berjaya!");
+                    dot.className = "w-2 h-2 rounded-full bg-emerald-500";
+                    statusText.innerText = "Selesai Disegerakkan";
+                    showToast("Sambungan Berjaya: Maklumat Dikemaskini");
                 } else {
-                    throw new Error(json.message || "Ralat tidak diketahui dari Apps Script.");
+                    throw new Error("Format ralat");
                 }
             } catch (error) {
-                console.error("Ralat Sync:", error);
+                console.warn("Penyelarasan API gagal, menggunakan mod cache luar talian:", error);
                 
-                // Paparkan sepanduk ralat
-                errorBanner.classList.remove('hidden');
-                document.getElementById('api-error-message').innerText = `Ralat: ${error.message}. Sila pastikan anda telah melakukan 'Deploy > New deployment' dengan akses 'Anyone' di Google Sheets.`;
-                
-                // Jika gagal, kekalkan data sandaran sedia ada
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/10 border border-rose-500/30 text-rose-500";
-                statusText.innerText = "Mod Sandaran (Offline)";
-                showToast("Menggunakan data sandaran lokal.");
+                dot.className = "w-2 h-2 rounded-full bg-amber-500";
+                statusText.innerText = "Mod Luar Talian (Data Tersimpan)";
+                initDashboard();
             }
         }
 
-        // Render Table Data
+        // Memaparkan Senarai Ahli di dalam Jadual
         function renderTable(data) {
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
             if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Tiada rekod ditemui.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="py-12 text-center text-slate-400 font-medium">Tiada rekod ditemui.</td></tr>`;
+                document.getElementById('showing-count').innerText = 0;
+                document.getElementById('total-count').innerText = members.length;
                 return;
             }
 
             data.forEach((member) => {
-                const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
+                const target = member.target_override || getTargetFee(member.kategori, member.nama);
                 const percent = target > 0 ? Math.min(Math.round((member.total / target) * 100), 100) : 100;
+                const isShahira = member.nama.toUpperCase().includes("NUR SHAHIRA AINA");
                 
-                // Badge Styles
                 let statusBadge = '';
-                let progressColor = 'bg-slate-300';
+                let progressColor = 'bg-slate-200';
                 
                 if (member.status === 'Selesai') {
-                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🟢 Lunas</span>`;
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Lunas</span>`;
                     progressColor = 'bg-emerald-500';
                 } else if (member.status === 'Separa') {
-                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">🟡 Separa</span>`;
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>Separa</span>`;
                     progressColor = 'bg-amber-500';
                 } else if (member.status === 'Pindah') {
-                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200">✈️ Pindah</span>`;
-                    progressColor = 'bg-purple-500';
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Pindah</span>`;
+                    progressColor = 'bg-indigo-500';
                 } else {
-                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">🔴 Tiada Bayaran</span>`;
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Belum Bayar</span>`;
                     progressColor = 'bg-rose-500';
                 }
 
-                const isGuru = member.kategori === 'Guru';
-                const catBadge = isGuru 
-                    ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-150">👨‍🏫 GURU</span>`
-                    : `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-150">💼 AKP</span>`;
+                const catBadge = member.kategori === 'Guru' 
+                    ? `<span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md font-medium">Guru</span>`
+                    : `<span class="text-[11px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md font-medium">AKP</span>`;
 
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50/80 transition duration-150";
+                tr.className = "hover:bg-slate-50/70 cursor-pointer transition border-b border-slate-100 select-none";
+                tr.onclick = () => openDrawer(member.bil);
+
                 tr.innerHTML = `
-                    <td class="py-4 px-6 text-center font-bold text-slate-400">${member.bil}</td>
-                    <td class="py-4 px-6 font-bold text-slate-700">${member.nama || "TIADA NAMA"}</td>
-                    <td class="py-4 px-6 text-center">${catBadge}</td>
-                    <td class="py-4 px-6 text-center font-extrabold text-slate-800">RM ${member.total} <span class="text-xs text-slate-400 font-normal">/ RM ${target}</span></td>
-                    <td class="py-4 px-6 text-center">${statusBadge}</td>
+                    <td class="py-4 px-6 text-center font-medium text-slate-400">#${member.bil}</td>
                     <td class="py-4 px-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                                <div class="${progressColor} h-2.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
-                            </div>
-                            <span class="text-xs font-extrabold text-slate-500 w-10">${percent}%</span>
+                        <div class="font-semibold text-slate-950">
+                            ${member.nama}
+                            ${isShahira ? `
+                                <div class="text-[10px] text-rose-600 font-bold uppercase mt-1 tracking-wider flex items-center gap-1 animate-pulse">
+                                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Tunggakan 2025: RM80
+                                </div>
+                            ` : ''}
                         </div>
                     </td>
-                    <td class="py-4 px-6 text-center">
-                        <button onclick="openPaymentModal(${member.bil})" class="p-1.5 bg-slate-50 border border-slate-200 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-600 rounded-lg text-slate-500 transition active:scale-90">
-                            <i data-lucide="edit-3" class="w-4 h-4"></i>
-                        </button>
+                    <td class="py-4 px-6 text-center">${catBadge}</td>
+                    <td class="py-4 px-6 text-center font-semibold text-slate-900">RM ${member.total}</td>
+                    <td class="py-4 px-6 text-center font-semibold text-slate-400">RM ${target}</td>
+                    <td class="py-4 px-6">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-20 bg-slate-100 rounded-full h-1 overflow-hidden">
+                                <div class="${progressColor} h-1 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-500">${percent}%</span>
+                        </div>
                     </td>
+                    <td class="py-4 px-6 text-center">${statusBadge}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -425,12 +505,11 @@
             document.getElementById('total-count').innerText = members.length;
         }
 
-        // Apply Filters (Search and filter tab combo)
+        // Menapis Data Berdasarkan Tab Penapis & Kotak Carian
         function applyFilters() {
             const searchVal = document.getElementById('search-bar').value.toLowerCase();
-            
             const filtered = members.filter(member => {
-                const namaAhli = member.nama ? member.nama.toLowerCase() : "";
+                const namaAhli = (member.nama || "").toLowerCase();
                 const matchesSearch = namaAhli.includes(searchVal);
                 
                 let matchesTab = true;
@@ -441,106 +520,251 @@
                         matchesTab = member.status === activeFilter;
                     }
                 }
-                
                 return matchesSearch && matchesTab;
             });
-
             renderTable(filtered);
         }
 
-        // Filter status tab switcher
         function filterStatus(status, element) {
             activeFilter = status;
-            
             document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.className = "filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200";
+                tab.className = "filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50";
             });
-            
-            element.className = "filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-sasera-800 text-white shadow-sm";
-
+            element.className = "filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-indigo-600 text-white shadow-sm";
             applyFilters();
         }
 
-        // Update top KPI cards
+        // Mengemas kini Kad KPI statistik di bahagian atas
         function updateKPIs() {
             const activeMembers = members.filter(m => m.status !== 'Pindah');
             const total = activeMembers.length;
-            
             const guruCount = activeMembers.filter(m => m.kategori === 'Guru').length;
             const akpCount = activeMembers.filter(m => m.kategori === 'AKP').length;
-            
             const selesai = activeMembers.filter(m => m.status === 'Selesai').length;
-            const separa = activeMembers.filter(m => m.status === 'Separa').length;
-            const tunggakan = activeMembers.filter(m => m.status === 'Tunggakan').length;
+            
+            let currentCollected = 0;
+            let totalExpected = 0;
+            let activeUnpaidCount = 0;
+
+            members.forEach(m => {
+                const target = m.target_override || getTargetFee(m.kategori, m.nama);
+                currentCollected += m.total;
+                totalExpected += target;
+                if (m.total < target && m.status !== 'Pindah') {
+                    activeUnpaidCount++;
+                }
+            });
+
+            const totalRemaining = totalExpected - currentCollected;
 
             document.getElementById('kpi-total').innerText = total;
-            document.getElementById('kpi-breakdown').innerText = `${guruCount} Guru | ${akpCount} AKP aktif`;
+            document.getElementById('kpi-breakdown').innerText = `${guruCount} Guru | ${akpCount} AKP`;
+            
             document.getElementById('kpi-selesai').innerText = selesai;
-            document.getElementById('kpi-separa').innerText = separa;
-            document.getElementById('kpi-tunggakan').innerText = tunggakan;
-
             const selesaiPercent = total > 0 ? Math.round((selesai / total) * 100) : 0;
-            document.getElementById('kpi-selesai-percent').innerText = `${selesaiPercent}% daripada ahli aktif`;
+            document.getElementById('kpi-selesai-percent').innerText = `${selesaiPercent}% daripada ahli`;
+            document.getElementById('kpi-selesai-bar').style.width = `${selesaiPercent}%`;
+
+            document.getElementById('kpi-tunggakan-rm').innerText = `RM ${totalRemaining.toLocaleString()}`;
+            document.getElementById('kpi-tunggakan-count').innerText = `${activeUnpaidCount} Orang Belum Selesai`;
+            
+            const debtPercent = totalExpected > 0 ? Math.max(0, Math.min(100, Math.round((totalRemaining / totalExpected) * 100))) : 100;
+            document.getElementById('kpi-tunggakan-bar').style.width = `${debtPercent}%`;
+
+            document.getElementById('kpi-collected-rm').innerText = `RM ${currentCollected.toLocaleString()}`;
+            document.getElementById('kpi-target-rm').innerText = `/ RM ${totalExpected.toLocaleString()}`;
+
+            const overallPercent = totalExpected > 0 ? Math.round((currentCollected / totalExpected) * 100) : 0;
+            document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('notification-toast');
-            const toastMessage = document.getElementById('toast-message');
+        // Menjana Pecahan Bulan Mengikut Pembayaran untuk Paparan Profil (Jan-Okt)
+        function generateDynamicMonthsPaid(member) {
+            const name = member.nama.toUpperCase();
+            const cat = member.kategori;
+            const totalPaid = member.total;
+            const months = Array(10).fill().map(() => ({ paid: 0, rate: 0, active: true }));
 
-            toastMessage.innerText = message;
-            toast.className = `fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition-all duration-300 z-50 translate-y-0 opacity-100`;
+            if (name.includes("NUUR SHARIZAH")) {
+                let remaining = totalPaid;
+                for (let i = 0; i < 2; i++) {
+                    let allocated = Math.min(remaining, 15);
+                    months[i] = { paid: allocated, rate: 15, active: true };
+                    remaining -= allocated;
+                }
+                for (let i = 2; i < 10; i++) {
+                    months[i] = { paid: 0, rate: 0, active: false }; 
+                }
+                return months;
+            }
 
-            setTimeout(() => {
-                toast.className = `fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition-all duration-300 z-50 translate-y-20 opacity-0`;
-            }, 3000);
+            if (name.includes("NORAMIRA") && name.includes("IDRIS")) {
+                months[0] = { paid: 0, rate: 0, active: false };
+                months[1] = { paid: 0, rate: 0, active: false };
+                
+                let remaining = totalPaid;
+                for (let i = 2; i < 10; i++) {
+                    let allocated = Math.min(remaining, 15);
+                    months[i] = { paid: allocated, rate: 15, active: true };
+                    remaining -= allocated;
+                }
+                return months;
+            }
+
+            if (name.includes("NUR SHAHIRA AINA")) {
+                // RM80 ditolak untuk tunggakan 2025 dahulu
+                let for2026 = Math.max(totalPaid - 80, 0);
+                for (let i = 0; i < 10; i++) {
+                    let allocated = Math.min(for2026, 20);
+                    months[i] = { paid: allocated, rate: 20, active: true };
+                    for2026 -= allocated;
+                }
+                return months;
+            }
+
+            const rate = (cat === "Guru") ? 20 : 15;
+            let remaining = totalPaid;
+            for (let i = 0; i < 10; i++) {
+                let allocated = Math.min(remaining, rate);
+                months[i] = { paid: allocated, rate: rate, active: true };
+                remaining -= allocated;
+            }
+            return months;
         }
 
-        // --- Payment Modals Logic (Lokal / Mockup) ---
-        function openPaymentModal(bil) {
+        // Membuka Panel Profil Kewangan Slaid-Masuk (Drawer)
+        function openDrawer(bil) {
             const member = members.find(m => m.bil === bil);
             if (!member) return;
 
-            const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
+            currentOpenBil = bil;
+            const target = member.target_override || getTargetFee(member.kategori, member.nama);
+            const arrears = Math.max(target - member.total, 0);
 
-            document.getElementById('edit-member-index').value = bil;
-            document.getElementById('modal-member-name').innerText = member.nama || "";
-            document.getElementById('modal-member-category').innerText = member.kategori.toUpperCase();
-            document.getElementById('edit-member-paid').value = member.total;
-            
-            const remaining = target - member.total;
-            document.getElementById('modal-remaining-text').innerText = `RM ${remaining > 0 ? remaining : 0}`;
+            // Memasukkan data ke dalam medan teks
+            document.getElementById('detail-member-name').innerText = member.nama;
+            document.getElementById('detail-member-cat').innerText = member.kategori;
+            document.getElementById('detail-member-total').innerText = `RM ${member.total}`;
+            document.getElementById('detail-member-arrears').innerText = `RM ${arrears}`;
 
-            document.getElementById('payment-modal').classList.remove('hidden');
-        }
-
-        function closePaymentModal() {
-            document.getElementById('payment-modal').classList.add('hidden');
-        }
-
-        function savePaymentChanges() {
-            const bil = parseInt(document.getElementById('edit-member-index').value);
-            const paid = parseFloat(document.getElementById('edit-member-paid').value) || 0;
-
-            const memberIndex = members.findIndex(m => m.bil === bil);
-            if (memberIndex !== -1) {
-                const member = members[memberIndex];
-                const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
-                member.total = paid;
-                
-                if (member.nama && member.nama.includes("NUUR SHARIZAH")) {
-                    member.status = 'Pindah';
-                } else if (paid >= target) {
-                    member.status = 'Selesai';
-                } else if (paid > 0) {
-                    member.status = 'Separa';
-                } else {
-                    member.status = 'Tunggakan';
-                }
-
-                initDashboard();
-                closePaymentModal();
-                showToast("Rekod bayaran lokal berjaya dikemaskini!");
+            // Menetapkan gaya status lunas yang kemas
+            const statusEl = document.getElementById('detail-member-status');
+            statusEl.innerText = member.status;
+            if (member.status === 'Selesai') {
+                statusEl.className = "text-[10px] bg-emerald-50 text-emerald-600 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider";
+            } else if (member.status === 'Separa') {
+                statusEl.className = "text-[10px] bg-amber-50 text-amber-600 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider";
+            } else if (member.status === 'Pindah') {
+                statusEl.className = "text-[10px] bg-indigo-50 text-indigo-600 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider";
+            } else {
+                statusEl.className = "text-[10px] bg-rose-50 text-rose-600 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider";
             }
+
+            // Memeriksa kes khas Nur Shahira Aina untuk tunggakan RM80
+            const noticeBox = document.getElementById('detail-notice-box');
+            const upperName = member.nama.toUpperCase();
+
+            if (upperName.includes("NUR SHAHIRA AINA")) {
+                noticeBox.classList.remove('hidden');
+            } else {
+                noticeBox.classList.add('hidden');
+            }
+
+            // Membina grid status bulanan
+            const monthsData = generateDynamicMonthsPaid(member);
+            const monthsContainer = document.getElementById('detail-months-container');
+            monthsContainer.innerHTML = '';
+
+            MONTHS.forEach((mName, idx) => {
+                const mInfo = monthsData[idx];
+                const div = document.createElement('div');
+                
+                if (!mInfo.active) {
+                    div.className = "bg-slate-100 border border-slate-200/50 p-2.5 rounded-xl text-center text-slate-400 select-none";
+                    div.innerHTML = `
+                        <div class="text-[10px] font-bold text-slate-400">${mName}</div>
+                        <div class="text-[9px] font-semibold mt-1">N/A</div>
+                    `;
+                } else {
+                    const isFullyPaid = mInfo.paid >= mInfo.rate && mInfo.rate > 0;
+                    const isPartiallyPaid = mInfo.paid > 0 && mInfo.paid < mInfo.rate;
+                    
+                    let nodeStyle = 'border-slate-200 text-slate-500 bg-white';
+                    let amountStr = 'RM 0';
+                    
+                    if (isFullyPaid) {
+                        nodeStyle = 'border-emerald-200 bg-emerald-50 text-emerald-700 font-semibold';
+                        amountStr = `RM ${mInfo.paid}`;
+                    } else if (isPartiallyPaid) {
+                        nodeStyle = 'border-amber-200 bg-amber-50 text-amber-700 font-semibold';
+                        amountStr = `RM ${mInfo.paid}`;
+                    }
+
+                    div.className = `border p-2.5 rounded-xl text-center flex flex-col justify-center items-center transition hover:scale-105 duration-150 ${nodeStyle}`;
+                    div.innerHTML = `
+                        <div class="text-[10px] font-bold tracking-wider">${mName}</div>
+                        <div class="text-[9px] mt-1">${amountStr}</div>
+                    `;
+                }
+                monthsContainer.appendChild(div);
+            });
+
+            // Membuka animasi slaid drawer dari sebelah kanan
+            const drawer = document.getElementById('detail-drawer');
+            const drawerContainer = document.getElementById('drawer-container');
+            
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                drawerContainer.classList.remove('translate-x-full');
+            }, 10);
+            
+            lucide.createIcons();
+        }
+
+        function closeDrawer() {
+            const drawerContainer = document.getElementById('drawer-container');
+            const drawer = document.getElementById('detail-drawer');
+            
+            drawerContainer.classList.add('translate-x-full');
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+            }, 300);
+        }
+
+        // Paparan Makluman Toast Ringkas
+        function showToast(message) {
+            const toast = document.getElementById('notification-toast');
+            document.getElementById('toast-message').innerText = message;
+            
+            toast.className = `fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform transition duration-300 z-50 translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = `fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform transition duration-300 z-50 translate-y-20 opacity-0`;
+            }, 3000);
+        }
+
+        // Mengeksport senarai penuh ahli ke fail CSV bersih
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,NAMA,KATEGORI,DIBAYAR_RM,SASARAN_RM,STATUS,JAN,FEB,MAC,APR,MEI,JUN,JUL,OGOS,SEP,OKT\n";
+
+            members.forEach(m => {
+                const target = m.target_override || getTargetFee(m.kategori, m.nama);
+                const monthsData = generateDynamicMonthsPaid(m);
+                const monthsStr = monthsData.map(v => v.active ? v.paid : "N/A").join(",");
+                
+                const row = `"${m.bil}","${m.nama}","${m.kategori}","${m.total}","${target}","${m.status}",${monthsStr}`;
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "LAPORAN_YURAN_SASERA_2026.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Fail CSV berjaya dimuat turun!");
         }
     </script>
 </body>
