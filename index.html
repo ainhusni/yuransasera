@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ms" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kelab Kebajikan SASERA 2026</title>
+    <!-- Tailwind CSS for high-fidelity UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for modern iconography -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sasera: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full text-slate-800 flex flex-col antialiased">
+
+    <!-- TOP HEADER / BANNER -->
+    <header class="bg-gradient-to-r from-sasera-800 via-sasera-700 to-indigo-950 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-sky-500 text-white text-xs px-2.5 py-0.5 rounded-full font-bold tracking-wider">SASERA 2026</span>
+                        <span class="text-xs text-sky-200 font-medium">SK SATU SULTAN ALAM SHAH</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-serif">Satu Sultan Alam Shah Erat dan Rahmah</h1>
+                    <p class="text-sm text-sky-100 mt-1 font-sans">Sistem Semakan Tunggakan & Pengurusan Yuran Kebajikan Ahli (Yuran 10 Bulan)</p>
+                </div>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <div id="sync-badge" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 border border-white/20 text-white">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span id="sync-status-text">Memuatkan data...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- ERROR API NOTICE (Hidden by default) -->
+        <div id="api-error-banner" class="hidden bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-xl flex gap-3 items-start shadow-sm">
+            <i data-lucide="alert-octagon" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+            <div>
+                <h3 class="text-sm font-bold text-rose-800">Ralat Pengambilan Data Google Sheet</h3>
+                <p class="text-xs text-rose-700 mt-1" id="api-error-message">Gagal menghubungi Google Apps Script API. Sila pastikan anda telah melakukan 'Deploy' dengan akses 'Anyone'.</p>
+            </div>
+        </div>
+
+        <!-- FEE STRUCTURE CARD -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gradient-to-br from-sky-50 to-sky-100/50 border border-sky-200/60 p-5 rounded-2xl flex gap-4 items-start shadow-sm">
+                <div class="p-3 bg-sky-500 text-white rounded-xl">
+                    <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-sky-900">Kadar Yuran Guru (10 Bulan)</h3>
+                    <p class="text-xs text-sky-700 mt-1">RM 20 sebulan × 10 bulan = <strong class="text-sm font-extrabold text-sky-900">RM 200 / tahun</strong></p>
+                    <span class="inline-block mt-2 text-[10px] bg-sky-200/50 text-sky-800 px-2 py-0.5 rounded font-medium">Jan hingga Okt 2026</span>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100/50 border border-indigo-200/60 p-5 rounded-2xl flex gap-4 items-start shadow-sm">
+                <div class="p-3 bg-indigo-600 text-white rounded-xl">
+                    <i data-lucide="briefcase" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-indigo-900">Kadar Yuran AKP (10 Bulan)</h3>
+                    <p class="text-xs text-indigo-700 mt-1">RM 15 sebulan × 10 bulan = <strong class="text-sm font-extrabold text-indigo-900">RM 150 / tahun</strong></p>
+                    <span class="inline-block mt-2 text-[10px] bg-indigo-200/50 text-indigo-800 px-2 py-0.5 rounded font-medium">Noramira (Masuk Mac): RM 120/tahun | Nuur Sharizah (Pindah)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS / KPI CARDS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- 1. Total Members -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Jumlah Ahli Aktif</span>
+                    <h3 class="text-3xl font-bold text-slate-800 mt-1" id="kpi-total">0</h3>
+                    <p class="text-xs text-slate-500 mt-1" id="kpi-breakdown">0 Guru | 0 AKP aktif</p>
+                </div>
+                <div class="p-3.5 bg-sky-50 rounded-xl text-sky-600">
+                    <i data-lucide="users" class="w-7 h-7"></i>
+                </div>
+            </div>
+
+            <!-- 2. Selesai Berbayar -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Lunas Sepenuhnya</span>
+                    <h3 class="text-3xl font-bold text-emerald-600 mt-1" id="kpi-selesai">0</h3>
+                    <p class="text-xs text-emerald-600/80 mt-1" id="kpi-selesai-percent">0% daripada ahli</p>
+                </div>
+                <div class="p-3.5 bg-emerald-50 rounded-xl text-emerald-600">
+                    <i data-lucide="check-circle" class="w-7 h-7"></i>
+                </div>
+            </div>
+
+            <!-- 3. Bayaran Separa -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Bayaran Separa</span>
+                    <h3 class="text-3xl font-bold text-amber-600 mt-1" id="kpi-separa">0</h3>
+                    <p class="text-xs text-amber-500 mt-1">Sedang mencicil yuran</p>
+                </div>
+                <div class="p-3.5 bg-amber-50 rounded-xl text-amber-600">
+                    <i data-lucide="clock" class="w-7 h-7"></i>
+                </div>
+            </div>
+
+            <!-- 4. Belum Mula / Tunggakan -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-semibold text-rose-600 uppercase tracking-wider">Tiada Bayaran</span>
+                    <h3 class="text-3xl font-bold text-rose-600 mt-1" id="kpi-tunggakan">0</h3>
+                    <p class="text-xs text-rose-500 mt-1">Belum membuat bayaran</p>
+                </div>
+                <div class="p-3.5 bg-rose-50 rounded-xl text-rose-600">
+                    <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEARCH, FILTERS & ACTION BAR -->
+        <section class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div class="relative w-full md:max-w-md">
+                <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                <input type="text" id="search-bar" oninput="applyFilters()" placeholder="Cari nama guru, AKP atau status..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+            </div>
+
+            <div class="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
+                <button onclick="filterStatus('semua', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-sasera-800 text-white shadow-sm">Semua</button>
+                <button onclick="filterStatus('Guru', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">👨‍🏫 GURU</button>
+                <button onclick="filterStatus('AKP', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">💼 AKP</button>
+                <button onclick="filterStatus('Selesai', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">🟢 Lunas</button>
+                <button onclick="filterStatus('Separa', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">🟡 Separa</button>
+                <button onclick="filterStatus('Pindah', this)" class="filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100">✈️ Pindah</button>
+            </div>
+        </section>
+
+        <!-- DATA TABLE -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50/70 border-b border-slate-200 text-slate-500 text-xs font-bold uppercase tracking-wider">
+                            <th class="py-4 px-6 text-center w-16">BIL</th>
+                            <th class="py-4 px-6">NAMA AHLI KELAB</th>
+                            <th class="py-4 px-6 text-center">KATEGORI</th>
+                            <th class="py-4 px-6 text-center">BAYARAN (RM)</th>
+                            <th class="py-4 px-6 text-center">STATUS</th>
+                            <th class="py-4 px-6">PROGRESS SASARAN</th>
+                            <th class="py-4 px-6 text-center w-24">TINDAKAN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Table rows injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-slate-50/50 px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                <div>Menunjukkan <span id="showing-count" class="font-bold text-slate-700">0</span> daripada <span id="total-count" class="font-bold text-slate-700">0</span> rekod</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs mt-auto">
+        <p>© 2026 Satu Sultan Alam Shah Erat dan Rahmah (SASERA). Dibangunkan untuk kemudahan Bendahari.</p>
+    </footer>
+
+    <!-- UPDATE PAYMENT MODAL -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-bold">Kemaskini Rekod Bayaran (Lokal)</h3>
+                    <button onclick="closePaymentModal()" class="text-white/80 hover:text-white transition">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <p id="modal-member-name" class="text-sm text-emerald-100 mt-1 font-semibold"></p>
+                <span id="modal-member-category" class="inline-block mt-1 text-[11px] bg-emerald-900/40 px-2 py-0.5 rounded font-bold"></span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-xs text-rose-500 font-medium">Nota: Kemaskini di sini adalah sementara untuk rujukan pantas. Disarankan untuk menukar terus di Google Sheet utama.</p>
+                <input type="hidden" id="edit-member-index">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Jumlah Bayaran Baharu (RM)</label>
+                    <input type="number" id="edit-member-paid" min="0" max="200" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition">
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-150">
+                    <p class="text-xs text-slate-500 font-medium">Baki perlu dijelaskan:</p>
+                    <p class="text-lg font-extrabold text-slate-800 mt-0.5" id="modal-remaining-text">RM 0</p>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button onclick="closePaymentModal()" class="flex-1 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-50 transition">Batal</button>
+                    <button onclick="savePaymentChanges()" class="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 shadow-lg shadow-emerald-600/10 transition">Kemaskini</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERTS / NOTIFICATIONS CONTAINER -->
+    <div id="notification-toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition translate-y-20 opacity-0 z-50">
+        <i data-lucide="info" class="w-4 h-4 text-sky-400" id="toast-icon"></i>
+        <span class="text-xs font-semibold" id="toast-message">Mesej Notifikasi</span>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script>
+        // Apps Script URL yang baharu diberikan oleh pengguna
+        const API_URL = "https://script.google.com/macros/s/AKfycbxCIAEn8jDisgdL0MwceKysIn2gHnfUZJDa7V3LjJ5ttIxYXhOf6Dv1aNCiVxK-TkX7/exec";
+
+        // Data Sandaran (Fallback) sekiranya tiada internet atau ralat API
+        let members = [
+            { bil: 1, nama: "MOHD RAHAIZAT BIN RAHAMAN", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 2, nama: "ROSNANI BINTI MOHAMED ARUS", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 3, nama: "YUSLAINI SAPARIMIN @ YUKIRIN", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 4, nama: "AHMAD FUAD BIN ABU BAKAR @ BU", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 5, nama: "DR. NORZALIANA BINTI MAT NURI", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 6, nama: "A PREMILA A/P S APPLANAIDU", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 7, nama: "ADAM AZHARI BIN MUHAMAD SUBRI", kategori: "Guru", total: 40, status: "Separa" },
+            { bil: 8, nama: "AFIQAH BINTI ADAM MALEK", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 9, nama: "AHMAD HANAFI BIN ABDUL ALIM", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 10, nama: "AINUR RUZAINAH BINTI ABDULLAH", kategori: "Guru", total: 51, status: "Separa" },
+            { bil: 11, nama: "AZIZAH BINTI ABDUL WAHAB @ALI", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 12, nama: "INTAN NORSYAFIQAH BINTI ZAHID", kategori: "Guru", total: 160, status: "Separa" },
+            { bil: 13, nama: "IQBAL AFANDI BIN MAHMUD ALIUDIN", kategori: "Guru", total: 20, status: "Separa" },
+            { bil: 14, nama: "MOHD KHOMEINI BIN CHE OMAR", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 15, nama: "MOHD MASRAN BIN ABDUL MAJID", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 16, nama: "MOHD RAFEZI BIN HAMZAH", kategori: "Guru", total: 80, status: "Separa" },
+            { bil: 17, nama: "MOHD YUSOFF BIN MOHD NASIR", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 18, nama: "MUHAMAD SYAHIRAN BIN MAT SIDEK", kategori: "Guru", total: 40, status: "Separa" },
+            { bil: 19, nama: "NOOR HAYATI BINTI MAT ABDULLAH", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 20, nama: "NORALIA BINTI SULAIMAN", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 21, nama: "NUR AIN BINTI HUSNI", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 22, nama: "NUR FAHIMAH BINTI FAUZI", kategori: "Guru", total: 150, status: "Separa" },
+            { bil: 23, nama: "NUR FARINI BINTI MD MARZUKI", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 24, nama: "NUR IZZATUL KHAIRIAH BINTI MUBIN", kategori: "Guru", total: 60, status: "Separa" },
+            { bil: 25, nama: "NUR SHAHIRA AINA BINTI ZULKIFLI", kategori: "Guru", total: 0, status: "Tunggakan" }, 
+            { bil: 26, nama: "NUR SYAZA BINTI ISAMUDIN", kategori: "Guru", total: 20, status: "Separa" },
+            { bil: 27, nama: "NURASYIKIN BINTI NORIZAN", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 28, nama: "NURUL ASFINAH BINTI RUSLAN", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 29, nama: "NURUL IZZATI MU’AFAH BINTI KHALID", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 30, nama: "NURUL LYIANA BINTI JAMALUDDIN", kategori: "Guru", total: 165, status: "Separa" },
+            { bil: 31, nama: "PURUSOTHMAN NAIR A/L K.I KUMARAN", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 32, nama: "RAFIDAH BINTI IBRAHIM", kategori: "Guru", total: 40, status: "Separa" },
+            { bil: 33, nama: "SADATUL NAZIRAH BINTI ABD HAMID", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 34, nama: "SAL SABILA BINTI RAMLAN", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 35, nama: "SITI HAJAR BINTI ABDULLAH", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 36, nama: "SITI ROKIAH BINTI OTHMAN", kategori: "Guru", total: 120, status: "Separa" },
+            { bil: 37, nama: "SITI ZULAIKHA BINTI ADNAN", kategori: "Guru", total: 80, status: "Separa" },
+            { bil: 38, nama: "TENGKU HAJAR BINTI TENGKU ABDUL RASHID", kategori: "Guru", total: 0, status: "Tunggakan" },
+            { bil: 39, nama: "WAN AJRINA BINTI WAN AHMAD", kategori: "Guru", total: 160, status: "Separa" },
+            { bil: 40, nama: "YII YUNG HUONG", kategori: "Guru", total: 120, status: "Separa" },
+            { bil: 41, nama: "ZUHANA BINTI MUKRIM", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 42, nama: "ZULHANIF BIN AHMAD RODZI", kategori: "Guru", total: 200, status: "Selesai" },
+            { bil: 43, nama: "ZURIYATI BINTI DOLLAH", kategori: "Guru", total: 100, status: "Separa" },
+            { bil: 44, nama: "MARLIA BINTI MOHAMED", kategori: "AKP", total: 45, status: "Separa" },
+            { bil: 45, nama: "NAZIRA BINTI RAMLI", kategori: "AKP", total: 15, status: "Separa" },
+            { bil: 46, nama: "NORDIANA BINTI NORDIN", kategori: "AKP", total: 60, status: "Separa" },
+            { bil: 47, nama: "NUR AMIERA BINTI MOHD SULAIMI", kategori: "AKP", total: 60, status: "Separa" },
+            { bil: 48, nama: "NORAMIRA BINTI IDRIS", kategori: "AKP", total: 60, status: "Separa" }, 
+            { bil: 49, nama: "SITI HIDAYAH BINTI HIDI", kategori: "AKP", total: 110, status: "Separa" },
+            { bil: 50, nama: "SITI NASMASYURAH BINTI MOHAMAD RUZUKI", kategori: "AKP", total: 90, status: "Separa" },
+            { bil: 51, nama: "NUUR SHARIZAH BINTI MOHD DOM", kategori: "AKP", total: 30, status: "Pindah" } 
+        ];
+
+        let activeFilter = 'semua';
+        
+        // Helper to get target fee dynamically
+        function getTargetFee(kategori, nama = "") {
+            if (!nama) return kategori === 'Guru' ? 200 : 150;
+            const upperName = nama.toUpperCase();
+            if (upperName.includes("NUUR SHARIZAH")) {
+                const found = members.find(m => m.nama && m.nama.toUpperCase().includes("NUUR SHARIZAH"));
+                return found ? found.total : 30; 
+            }
+            if (upperName.includes("NORAMIRA") && upperName.includes("IDRIS")) {
+                return 120; 
+            }
+            if (upperName.includes("NUR SHAHIRA AINA")) {
+                return 280; // RM200 (Yuran 2026) + RM80 (Baki 2025)
+            }
+            return kategori === 'Guru' ? 200 : 150;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+            lucide.createIcons();
+            syncFromAPI(); // Auto-sync on launch
+        });
+
+        function initDashboard() {
+            renderTable(members);
+            updateKPIs();
+        }
+
+        // Fetch data secara langsung dari Apps Script API pengguna
+        async function syncFromAPI() {
+            const badge = document.getElementById('sync-badge');
+            const statusText = document.getElementById('sync-status-text');
+            const errorBanner = document.getElementById('api-error-banner');
+            
+            badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/10 border border-amber-500/30 text-amber-500";
+            statusText.innerText = "Menghubungkan...";
+            errorBanner.classList.add('hidden');
+
+            try {
+                // Fetch data dari Google Web App API
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error("Gagal mengambil respon dari pelayan API Google");
+                
+                const json = await response.json();
+                
+                if (json.status === "success" && json.data) {
+                    members = json.data;
+                    initDashboard();
+                    
+                    badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-500";
+                    statusText.innerText = "Terkini (Live)";
+                    showToast("Penyelarasan Data Google Sheet Berjaya!");
+                } else {
+                    throw new Error(json.message || "Ralat tidak diketahui dari Apps Script.");
+                }
+            } catch (error) {
+                console.error("Ralat Sync:", error);
+                
+                // Paparkan sepanduk ralat
+                errorBanner.classList.remove('hidden');
+                document.getElementById('api-error-message').innerText = `Ralat: ${error.message}. Sila pastikan anda telah melakukan 'Deploy > New deployment' dengan akses 'Anyone' di Google Sheets.`;
+                
+                // Jika gagal, kekalkan data sandaran sedia ada
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/10 border border-rose-500/30 text-rose-500";
+                statusText.innerText = "Mod Sandaran (Offline)";
+                showToast("Menggunakan data sandaran lokal.");
+            }
+        }
+
+        // Render Table Data
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Tiada rekod ditemui.</td></tr>`;
+                return;
+            }
+
+            data.forEach((member) => {
+                const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
+                const percent = target > 0 ? Math.min(Math.round((member.total / target) * 100), 100) : 100;
+                
+                // Badge Styles
+                let statusBadge = '';
+                let progressColor = 'bg-slate-300';
+                
+                if (member.status === 'Selesai') {
+                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🟢 Lunas</span>`;
+                    progressColor = 'bg-emerald-500';
+                } else if (member.status === 'Separa') {
+                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">🟡 Separa</span>`;
+                    progressColor = 'bg-amber-500';
+                } else if (member.status === 'Pindah') {
+                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200">✈️ Pindah</span>`;
+                    progressColor = 'bg-purple-500';
+                } else {
+                    statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">🔴 Tiada Bayaran</span>`;
+                    progressColor = 'bg-rose-500';
+                }
+
+                const isGuru = member.kategori === 'Guru';
+                const catBadge = isGuru 
+                    ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-150">👨‍🏫 GURU</span>`
+                    : `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-150">💼 AKP</span>`;
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 transition duration-150";
+                tr.innerHTML = `
+                    <td class="py-4 px-6 text-center font-bold text-slate-400">${member.bil}</td>
+                    <td class="py-4 px-6 font-bold text-slate-700">${member.nama || "TIADA NAMA"}</td>
+                    <td class="py-4 px-6 text-center">${catBadge}</td>
+                    <td class="py-4 px-6 text-center font-extrabold text-slate-800">RM ${member.total} <span class="text-xs text-slate-400 font-normal">/ RM ${target}</span></td>
+                    <td class="py-4 px-6 text-center">${statusBadge}</td>
+                    <td class="py-4 px-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                <div class="${progressColor} h-2.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+                            </div>
+                            <span class="text-xs font-extrabold text-slate-500 w-10">${percent}%</span>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        <button onclick="openPaymentModal(${member.bil})" class="p-1.5 bg-slate-50 border border-slate-200 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-600 rounded-lg text-slate-500 transition active:scale-90">
+                            <i data-lucide="edit-3" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            lucide.createIcons();
+            document.getElementById('showing-count').innerText = data.length;
+            document.getElementById('total-count').innerText = members.length;
+        }
+
+        // Apply Filters (Search and filter tab combo)
+        function applyFilters() {
+            const searchVal = document.getElementById('search-bar').value.toLowerCase();
+            
+            const filtered = members.filter(member => {
+                const namaAhli = member.nama ? member.nama.toLowerCase() : "";
+                const matchesSearch = namaAhli.includes(searchVal);
+                
+                let matchesTab = true;
+                if (activeFilter !== 'semua') {
+                    if (activeFilter === 'Guru' || activeFilter === 'AKP') {
+                        matchesTab = member.kategori === activeFilter;
+                    } else {
+                        matchesTab = member.status === activeFilter;
+                    }
+                }
+                
+                return matchesSearch && matchesTab;
+            });
+
+            renderTable(filtered);
+        }
+
+        // Filter status tab switcher
+        function filterStatus(status, element) {
+            activeFilter = status;
+            
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.className = "filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200";
+            });
+            
+            element.className = "filter-tab px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition bg-sasera-800 text-white shadow-sm";
+
+            applyFilters();
+        }
+
+        // Update top KPI cards
+        function updateKPIs() {
+            const activeMembers = members.filter(m => m.status !== 'Pindah');
+            const total = activeMembers.length;
+            
+            const guruCount = activeMembers.filter(m => m.kategori === 'Guru').length;
+            const akpCount = activeMembers.filter(m => m.kategori === 'AKP').length;
+            
+            const selesai = activeMembers.filter(m => m.status === 'Selesai').length;
+            const separa = activeMembers.filter(m => m.status === 'Separa').length;
+            const tunggakan = activeMembers.filter(m => m.status === 'Tunggakan').length;
+
+            document.getElementById('kpi-total').innerText = total;
+            document.getElementById('kpi-breakdown').innerText = `${guruCount} Guru | ${akpCount} AKP aktif`;
+            document.getElementById('kpi-selesai').innerText = selesai;
+            document.getElementById('kpi-separa').innerText = separa;
+            document.getElementById('kpi-tunggakan').innerText = tunggakan;
+
+            const selesaiPercent = total > 0 ? Math.round((selesai / total) * 100) : 0;
+            document.getElementById('kpi-selesai-percent').innerText = `${selesaiPercent}% daripada ahli aktif`;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('notification-toast');
+            const toastMessage = document.getElementById('toast-message');
+
+            toastMessage.innerText = message;
+            toast.className = `fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition-all duration-300 z-50 translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = `fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform transition-all duration-300 z-50 translate-y-20 opacity-0`;
+            }, 3000);
+        }
+
+        // --- Payment Modals Logic (Lokal / Mockup) ---
+        function openPaymentModal(bil) {
+            const member = members.find(m => m.bil === bil);
+            if (!member) return;
+
+            const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
+
+            document.getElementById('edit-member-index').value = bil;
+            document.getElementById('modal-member-name').innerText = member.nama || "";
+            document.getElementById('modal-member-category').innerText = member.kategori.toUpperCase();
+            document.getElementById('edit-member-paid').value = member.total;
+            
+            const remaining = target - member.total;
+            document.getElementById('modal-remaining-text').innerText = `RM ${remaining > 0 ? remaining : 0}`;
+
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        function savePaymentChanges() {
+            const bil = parseInt(document.getElementById('edit-member-index').value);
+            const paid = parseFloat(document.getElementById('edit-member-paid').value) || 0;
+
+            const memberIndex = members.findIndex(m => m.bil === bil);
+            if (memberIndex !== -1) {
+                const member = members[memberIndex];
+                const target = member.target_override || getTargetFee(member.kategori, member.nama || "");
+                member.total = paid;
+                
+                if (member.nama && member.nama.includes("NUUR SHARIZAH")) {
+                    member.status = 'Pindah';
+                } else if (paid >= target) {
+                    member.status = 'Selesai';
+                } else if (paid > 0) {
+                    member.status = 'Separa';
+                } else {
+                    member.status = 'Tunggakan';
+                }
+
+                initDashboard();
+                closePaymentModal();
+                showToast("Rekod bayaran lokal berjaya dikemaskini!");
+            }
+        }
+    </script>
+</body>
+</html>
