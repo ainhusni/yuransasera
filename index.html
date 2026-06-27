@@ -24,7 +24,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Mengemas scrollbar agar kelihatan lebih minimalis */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -54,11 +53,11 @@
                     <h1 class="text-sm font-bold tracking-tight text-slate-900 uppercase">
                         SASERA 2026 YURAN
                     </h1>
-                    <p class="text-[11px] text-slate-500 uppercase tracking-wider">Sk Satu Sultan Alam Shah // Erat & Rahmah</p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider">SK SATU SULTAN ALAM SHAH // ERAT & RAHMAH</p>
                 </div>
             </div>
 
-            <!-- STATUS PENYELARASAN GOOGLE SHEET -->
+            <!-- STATUS PENYELARASAN GOOGLE SHEET (LIVE SYNC INDICATOR) -->
             <div class="flex items-center gap-3">
                 <button onclick="syncFromAPI()" class="p-2 rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-600 transition active:scale-95 group" title="Segerakkan Google Sheet">
                     <i data-lucide="refresh-cw" class="w-4 h-4 group-hover:rotate-180 transition duration-500"></i>
@@ -76,10 +75,9 @@
 
         <!-- KAD RINGKASAN METRIK -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            
             <!-- JUMLAH AHLI -->
             <div class="bg-white border border-slate-200/80 p-5 rounded-2xl relative overflow-hidden shadow-sm">
-                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Jumlah Ahli</span>
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Jumlah Ahli Aktif</span>
                 <div class="flex items-baseline gap-2 mt-2">
                     <h3 class="text-2xl font-bold text-slate-900" id="kpi-total">0</h3>
                     <span class="text-[11px] text-slate-500 font-medium" id="kpi-breakdown">0 Guru | 0 AKP</span>
@@ -128,13 +126,11 @@
 
         <!-- CARIAN & PENAPIS MINIMALIS -->
         <section class="flex flex-col md:flex-row gap-3 items-center justify-between">
-            <!-- KOTAK CARIAN -->
             <div class="relative w-full md:max-w-md group">
                 <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 transition"></i>
                 <input type="text" id="search-bar" oninput="applyFilters()" placeholder="Cari nama atau kategori..." class="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition placeholder:text-slate-400">
             </div>
 
-            <!-- BUTANG PENAPIS -->
             <div class="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
                 <button onclick="filterStatus('semua', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-indigo-600 text-white shadow-sm">Semua</button>
                 <button onclick="filterStatus('Guru', this)" class="filter-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition bg-white border border-slate-200 text-slate-600 hover:bg-slate-50">Guru</button>
@@ -170,7 +166,6 @@
                 </table>
             </div>
 
-            <!-- TABLE STATUS BAR -->
             <div class="bg-slate-50/50 px-6 py-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
                 <div>Jumlah Rekod: <span id="showing-count" class="text-indigo-600">0</span> / <span id="total-count" class="text-slate-500">0</span></div>
                 <div class="flex items-center gap-1.5 text-emerald-600">
@@ -184,15 +179,12 @@
     <!-- SLIDE-OVER DRAWER (Butiran Profil Kewangan Ahli) -->
     <div id="detail-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
         <div class="absolute inset-0 overflow-hidden">
-            <!-- Latar belakang gelap lutsinar -->
             <div onclick="closeDrawer()" class="absolute inset-0 bg-slate-900/30 backdrop-blur-sm transition-opacity duration-300"></div>
 
             <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                <!-- Panel Profil -->
                 <div class="pointer-events-auto w-screen max-w-md transform bg-white border-l border-slate-200 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 translate-x-full" id="drawer-container">
                     
                     <div class="space-y-6">
-                        <!-- Drawer Header -->
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] bg-indigo-50 text-indigo-600 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">Penyata Ahli</span>
                             <button onclick="closeDrawer()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition">
@@ -200,7 +192,6 @@
                             </button>
                         </div>
                         
-                        <!-- Nama Ahli -->
                         <div>
                             <h3 id="detail-member-name" class="text-base font-bold tracking-tight text-slate-900 uppercase">Memuatkan...</h3>
                             <div class="flex gap-1.5 mt-2">
@@ -209,7 +200,6 @@
                             </div>
                         </div>
                         
-                        <!-- Metrik Ringkas Kewangan -->
                         <div class="grid grid-cols-2 gap-3">
                             <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl">
                                 <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Telah Dibayar</span>
@@ -221,12 +211,12 @@
                             </div>
                         </div>
 
-                        <!-- KOTAK NOTA TUNGGAKAN KHAS SHAHIRA AINA -->
+                        <!-- KOTAK NOTA TUNGGAKAN DINAMIK (Dikesan secara auto dari BAKI 2025) -->
                         <div id="detail-notice-box" class="hidden bg-rose-50 border border-rose-100 p-4 rounded-xl flex items-start gap-3">
                             <i data-lucide="alert-circle" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
                             <div>
                                 <span class="text-[10px] font-bold text-rose-600 uppercase tracking-wider">Tunggakan Tahun Lepas</span>
-                                <p class="text-xs text-rose-700 mt-1">Baki yuran tertunggak bagi tahun 2025 yang belum dijelaskan adalah sebanyak <strong class="text-rose-900">RM 80.00</strong>. Sasaran dilaraskan kepada <strong class="text-rose-900">RM 280.00</strong> (RM200 standard + RM80 baki 2025).</p>
+                                <p class="text-xs text-rose-700 mt-1">Ahli ini mempunyai tunggakan yuran tahun lepas (2025) sebanyak <strong class="text-rose-900" id="notice-box-amount">RM 0.00</strong> yang belum dijelaskan. Sasaran tahun ini dilaraskan sewajarnya.</p>
                             </div>
                         </div>
 
@@ -239,7 +229,6 @@
                         </div>
                     </div>
 
-                    <!-- Drawer Footer -->
                     <div class="border-t border-slate-100 pt-4">
                         <button onclick="closeDrawer()" class="w-full py-2.5 bg-slate-900 text-white hover:bg-slate-800 font-semibold rounded-xl text-xs uppercase tracking-wider transition">
                             Tutup Butiran
@@ -258,62 +247,62 @@
     </div>
 
     <script>
-        // Logik URL Google Apps Script Web App
-        const API_URL = "https://script.google.com/macros/s/AKfycbccZbTaSyXzjBKBPPOUduM0rCWI6eUSs7WUFCwSR_r7Gz8VMn3PH7SZZ17ZYafCSoA/exec";
+        // Google Apps Script Web App URL yang baharu dikemaskini
+        const API_URL = "https://script.google.com/macros/s/AKfycbxXe8DeE7mS5cvuwS1oGgba2jZSit1EXbcE9eJNFsHDuHLa7w4lIxW2c5jGo_cEqu7l/exec";
 
-        // Senarai data penuh ahli dari rekod Google Sheet anda
+        // Data Sandaran Tempatan (Sekiranya dijalankan dalam sandbox iframe / tiada internet)
         const fallbackMembers = [
-            { bil: 1, nama: "MOHD RAHAIZAT BIN RAHAMAN", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 2, nama: "ROSNANI BINTI MOHAMED ARUS", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 3, nama: "YUSLAINI SAPARIMIN @ YUKIRIN", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 4, nama: "AHMAD FUAD BIN ABU BAKAR @ BU", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 5, nama: "DR. NORZALIANA BINTI MAT NURI", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 6, nama: "A PREMILA A/P S APPLANAIDU", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 7, nama: "ADAM AZHARI BIN MUHAMAD SUBRI", kategori: "Guru", total: 40, status: "Separa" },
-            { bil: 8, nama: "AFIQAH BINTI ADAM MALEK", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 9, nama: "AHMAD HANAFI BIN ABDUL ALIM", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 10, nama: "AINUR RUZAINAH BINTI ABDULLAH", kategori: "Guru", total: 105, status: "Separa" },
-            { bil: 11, nama: "AZIZAH BINTI ABDUL WAHAB @ALI", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 12, nama: "INTAN NORSYAFIQAH BINTI ZAHID", kategori: "Guru", total: 160, status: "Separa" },
-            { bil: 13, nama: "IQBAL AFANDI BIN MAHMUD ALIUDIN", kategori: "Guru", total: 20, status: "Separa" },
-            { bil: 14, nama: "MOHD KHOMEINI BIN CHE OMAR", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 15, nama: "MOHD MASRAN BIN ABDUL MAJID", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 16, nama: "MOHD RAFEZI BIN HAMZAH", kategori: "Guru", total: 80, status: "Separa" },
-            { bil: 17, nama: "MOHD YUSOFF BIN MOHD NASIR", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 18, nama: "MUHAMAD SYAHIRAN BIN MAT SIDEK", kategori: "Guru", total: 40, status: "Separa" },
-            { bil: 19, nama: "NOOR HAYATI BINTI MAT ABDULLAH", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 20, nama: "NORALIA BINTI SULAIMAN", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 21, nama: "NUR AIN BINTI HUSNI", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 22, nama: "NUR FAHIMAH BINTI FAUZI", kategori: "Guru", total: 150, status: "Separa" },
-            { bil: 23, nama: "NUR FARINI BINTI MD MARZUKI", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 24, nama: "NUR IZZATUL KHAIRIAH BINTI MUBIN", kategori: "Guru", total: 60, status: "Separa" },
-            { bil: 25, nama: "NUR SHAHIRA AINA BINTI ZULKIFLI", kategori: "Guru", total: 0, status: "Tunggakan" }, 
-            { bil: 26, nama: "NUR SYAZA BINTI ISAMUDIN", kategori: "Guru", total: 20, status: "Separa" },
-            { bil: 27, nama: "NURASYIKIN BINTI NORIZAN", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 28, nama: "NURUL ASFINAH BINTI RUSLAN", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 29, nama: "NURUL IZZATI MU’AFAH BINTI KHALID", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 30, nama: "NURUL LYIANA BINTI JAMALUDDIN", kategori: "Guru", total: 165, status: "Separa" },
-            { bil: 31, nama: "PURUSOTHMAN NAIR A/L K.I KUMARAN", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 32, nama: "RAFIDAH BINTI IBRAHIM", kategori: "Guru", total: 40, status: "Separa" },
-            { bil: 33, nama: "SADATUL NAZIRAH BINTI ABD HAMID", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 34, nama: "SAL SABILA BINTI RAMLAN", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 35, nama: "SITI HAJAR BINTI ABDULLAH", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 36, nama: "SITI ROKIAH BINTI OTHMAN", kategori: "Guru", total: 120, status: "Separa" },
-            { bil: 37, nama: "SITI ZULAIKHA BINTI ADNAN", kategori: "Guru", total: 80, status: "Separa" },
-            { bil: 38, nama: "TENGKU HAJAR BINTI TENGKU ABDUL RASHID", kategori: "Guru", total: 0, status: "Tunggakan" },
-            { bil: 39, nama: "WAN AJRINA BINTI WAN AHMAD", kategori: "Guru", total: 160, status: "Separa" },
-            { bil: 40, nama: "YII YUNG HUONG", kategori: "Guru", total: 120, status: "Separa" },
-            { bil: 41, nama: "ZUHANA BINTI MUKRIM", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 42, nama: "ZULHANIF BIN AHMAD RODZI", kategori: "Guru", total: 200, status: "Selesai" },
-            { bil: 43, nama: "ZURIYATI BINTI DOLLAH", kategori: "Guru", total: 100, status: "Separa" },
-            { bil: 44, nama: "MARLIA BINTI MOHAMED", kategori: "AKP", total: 45, status: "Separa" },
-            { bil: 45, nama: "NAZIRA BINTI RAMLI", kategori: "AKP", total: 15, status: "Separa" },
-            { bil: 48, nama: "NORAMIRA BINTI IDRIS", kategori: "AKP", total: 60, status: "Separa" },
-            { bil: 46, nama: "NORDIANA BINTI NORDIN", kategori: "AKP", total: 60, status: "Separa" },
-            { bil: 47, nama: "NUR AMIERA BINTI MOHD SULAIMI", kategori: "AKP", total: 60, status: "Separa" },
-            { bil: 49, nama: "SITI HIDAYAH BINTI HIDI", kategori: "AKP", total: 110, status: "Separa" },
-            { bil: 50, nama: "SITI NASMASYURAH BINTI MOHAMAD RUZUKI", kategori: "AKP", total: 90, status: "Separa" },
-            { bil: 51, nama: "NUUR SHARIZAH BINTI MOHD DOM", kategori: "AKP", total: 30, status: "Pindah" } 
+            { bil: 1, nama: "MOHD RAHAIZAT BIN RAHAMAN", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 2, nama: "ROSNANI BINTI MOHAMED ARUS", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 3, nama: "YUSLAINI SAPARIMIN @ YUKIRIN", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 4, nama: "AHMAD FUAD BIN ABU BAKAR @ BU", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 5, nama: "DR. NORZALIANA BINTI MAT NURI", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 6, nama: "A PREMILA A/P S APPLANAIDU", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 7, nama: "ADAM AZHARI BIN MUHAMAD SUBRI", kategori: "Guru", total: 40, status: "Separa", baki_2025: 0 },
+            { bil: 8, nama: "AFIQAH BINTI ADAM MALEK", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 9, nama: "AHMAD HANAFI BIN ABDUL ALIM", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 10, nama: "AINUR RUZAINAH BINTI ABDULLAH", kategori: "Guru", total: 105, status: "Separa", baki_2025: 0 },
+            { bil: 11, nama: "AZIZAH BINTI ABDUL WAHAB @ALI", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 12, nama: "INTAN NORSYAFIQAH BINTI ZAHID", kategori: "Guru", total: 160, status: "Separa", baki_2025: 0 },
+            { bil: 13, nama: "IQBAL AFANDI BIN MAHMUD ALIUDIN", kategori: "Guru", total: 20, status: "Separa", baki_2025: 0 },
+            { bil: 14, nama: "MOHD KHOMEINI BIN CHE OMAR", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 15, nama: "MOHD MASRAN BIN ABDUL MAJID", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 16, nama: "MOHD RAFEZI BIN HAMZAH", kategori: "Guru", total: 80, status: "Separa", baki_2025: 0 },
+            { bil: 17, nama: "MOHD YUSOFF BIN MOHD NASIR", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 18, nama: "MUHAMAD SYAHIRAN BIN MAT SIDEK", kategori: "Guru", total: 40, status: "Separa", baki_2025: 0 },
+            { bil: 19, nama: "NOOR HAYATI BINTI MAT ABDULLAH", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 20, nama: "NORALIA BINTI SULAIMAN", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 21, nama: "NUR AIN BINTI HUSNI", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 22, nama: "NUR FAHIMAH BINTI FAUZI", kategori: "Guru", total: 150, status: "Separa", baki_2025: 0 },
+            { bil: 23, nama: "NUR FARINI BINTI MD MARZUKI", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 24, nama: "NUR IZZATUL KHAIRIAH BINTI MUBIN", kategori: "Guru", total: 60, status: "Separa", baki_2025: 0 },
+            { bil: 25, nama: "NUR SHAHIRA AINA BINTI ZULKIFLI", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 80 }, 
+            { bil: 26, nama: "NUR SYAZA BINTI ISAMUDIN", kategori: "Guru", total: 20, status: "Separa", baki_2025: 0 },
+            { bil: 27, nama: "NURASYIKIN BINTI NORIZAN", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 28, nama: "NURUL ASFINAH BINTI RUSLAN", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 29, nama: "NURUL IZZATI MU’AFAH BINTI KHALID", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 30, nama: "NURUL LYIANA BINTI JAMALUDDIN", kategori: "Guru", total: 165, status: "Separa", baki_2025: 0 },
+            { bil: 31, nama: "PURUSOTHMAN NAIR A/L K.I KUMARAN", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 32, nama: "RAFIDAH BINTI IBRAHIM", kategori: "Guru", total: 40, status: "Separa", baki_2025: 0 },
+            { bil: 33, nama: "SADATUL NAZIRAH BINTI ABD HAMID", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 34, nama: "SAL SABILA BINTI RAMLAN", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 35, nama: "SITI HAJAR BINTI ABDULLAH", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 36, nama: "SITI ROKIAH BINTI OTHMAN", kategori: "Guru", total: 120, status: "Separa", baki_2025: 0 },
+            { bil: 37, nama: "SITI ZULAIKHA BINTI ADNAN", kategori: "Guru", total: 80, status: "Separa", baki_2025: 0 },
+            { bil: 38, nama: "TENGKU HAJAR BINTI TENGKU ABDUL RASHID", kategori: "Guru", total: 0, status: "Tunggakan", baki_2025: 0 },
+            { bil: 39, nama: "WAN AJRINA BINTI WAN AHMAD", kategori: "Guru", total: 160, status: "Separa", baki_2025: 0 },
+            { bil: 40, nama: "YII YUNG HUONG", kategori: "Guru", total: 120, status: "Separa", baki_2025: 0 },
+            { bil: 41, nama: "ZUHANA BINTI MUKRIM", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 42, nama: "ZULHANIF BIN AHMAD RODZI", kategori: "Guru", total: 200, status: "Selesai", baki_2025: 0 },
+            { bil: 43, nama: "ZURIYATI BINTI DOLLAH", kategori: "Guru", total: 100, status: "Separa", baki_2025: 0 },
+            { bil: 44, nama: "MARLIA BINTI MOHAMED", kategori: "AKP", total: 45, status: "Separa", baki_2025: 0 },
+            { bil: 45, nama: "NAZIRA BINTI RAMLI", kategori: "AKP", total: 15, status: "Separa", baki_2025: 0 },
+            { bil: 48, nama: "NORAMIRA BINTI IDRIS", kategori: "AKP", total: 60, status: "Separa", baki_2025: 0 },
+            { bil: 46, nama: "NORDIANA BINTI NORDIN", kategori: "AKP", total: 60, status: "Separa", baki_2025: 0 },
+            { bil: 47, nama: "NUR AMIERA BINTI MOHD SULAIMI", kategori: "AKP", total: 60, status: "Separa", baki_2025: 0 },
+            { bil: 49, nama: "SITI HIDAYAH BINTI HIDI", kategori: "AKP", total: 110, status: "Separa", baki_2025: 0 },
+            { bil: 50, nama: "SITI NASMASYURAH BINTI MOHAMAD RUZUKI", kategori: "AKP", total: 90, status: "Separa", baki_2025: 0 },
+            { bil: 51, nama: "NUUR SHARIZAH BINTI MOHD DOM", kategori: "AKP", total: 30, status: "Pindah", baki_2025: 0 } 
         ];
 
         const MONTHS = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEP", "OKT"];
@@ -322,7 +311,6 @@
         let activeFilter = 'semua';
         let currentOpenBil = null;
 
-        // Logik pengiraan sasaran secara dinamik mengikut baki 2025 dan status ahli
         function getTargetFee(kategori, nama = "") {
             const upperName = (nama || "").toUpperCase();
             if (upperName.includes("NUUR SHARIZAH")) {
@@ -330,9 +318,6 @@
             }
             if (upperName.includes("NORAMIRA") && upperName.includes("IDRIS")) {
                 return 120; // Kemasukan Mac (8 bulan)
-            }
-            if (upperName.includes("NUR SHAHIRA AINA")) {
-                return 280; // RM200 yuran semasa + RM80 tunggakan 2025
             }
             return kategori === 'Guru' ? 200 : 150;
         }
@@ -343,38 +328,26 @@
             syncFromAPI();
         });
 
-        // Memuatkan pangkalan data dengan data sandaran
         function loadDatabase() {
-            const stored = localStorage.getItem('sasera_2026_cache_light');
-            if (stored) {
-                try {
-                    members = JSON.parse(stored);
-                } catch(e) {
-                    members = initDefaultData(fallbackMembers);
-                }
-            } else {
-                members = initDefaultData(fallbackMembers);
-                saveToLocalStorage();
-            }
+            members = initDefaultData(fallbackMembers);
             initDashboard();
         }
 
         function initDefaultData(rawArray) {
             return rawArray.map(m => {
-                const target = getTargetFee(m.kategori, m.nama);
+                const baseTarget = getTargetFee(m.kategori, m.nama);
+                const bakiVal = m.baki_2025 || 0;
                 return {
                     bil: m.bil,
                     nama: m.nama.toUpperCase(),
                     kategori: m.kategori,
                     total: m.total,
                     status: m.status,
-                    target_override: target
+                    baki_2025: bakiVal,
+                    target_override: m.target_override || (baseTarget + bakiVal),
+                    monthly: m.monthly || null
                 };
             });
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem('sasera_2026_cache_light', JSON.stringify(members));
         }
 
         function initDashboard() {
@@ -382,7 +355,7 @@
             updateKPIs();
         }
 
-        // Penyelarasan langsung dari API Google Apps Script
+        // Penyelarasan langsung dari API Google Apps Script yang baharu
         async function syncFromAPI() {
             const badge = document.getElementById('sync-badge');
             const statusText = document.getElementById('sync-status-text');
@@ -393,44 +366,54 @@
             statusText.innerText = "Menghubung...";
 
             try {
+                // Gunakan cache-buster untuk memaksa Google Web App memulangkan data terkini dari helaian Google Sheet
+                const cacheBusterUrl = API_URL + "?_cb=" + new Date().getTime();
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000); 
+                const timeoutId = setTimeout(() => controller.abort(), 8000); // had masa 8 saat
 
-                const response = await fetch(API_URL, { signal: controller.signal });
+                const response = await fetch(cacheBusterUrl, { signal: controller.signal });
                 clearTimeout(timeoutId);
 
-                if (!response.ok) throw new Error("Gagal");
+                if (!response.ok) throw new Error("Gagal mengambil data dari Google Apps Script");
                 const json = await response.json();
                 
                 if (json.status === "success" && json.data) {
-                    members = json.data.map(m => ({
-                        bil: m.bil,
-                        nama: m.nama.toUpperCase(),
-                        kategori: m.kategori,
-                        total: m.total,
-                        status: m.status,
-                        target_override: m.target_override || getTargetFee(m.kategori, m.nama)
-                    }));
+                    members = json.data.map(m => {
+                        const baseTarget = getTargetFee(m.kategori, m.nama);
+                        const bakiVal = m.baki_2025 || 0;
+                        return {
+                            bil: m.bil,
+                            nama: m.nama.toUpperCase(),
+                            kategori: m.kategori,
+                            total: m.total,
+                            status: m.status,
+                            baki_2025: bakiVal,
+                            target_override: m.target_override || (baseTarget + bakiVal),
+                            monthly: m.monthly || null
+                        };
+                    });
                     
-                    saveToLocalStorage();
                     initDashboard();
                     
                     dot.className = "w-2 h-2 rounded-full bg-emerald-500";
-                    statusText.innerText = "Selesai Disegerakkan";
-                    showToast("Sambungan Berjaya: Maklumat Dikemaskini");
+                    statusText.innerText = "Data Live (Google Sheet)";
+                    badge.className = "flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-100 text-[11px] font-semibold text-emerald-600";
+                    showToast("Penyelarasan Live Berjaya!");
                 } else {
                     throw new Error("Format ralat");
                 }
             } catch (error) {
-                console.warn("Penyelarasan API gagal, menggunakan mod cache luar talian:", error);
+                console.warn("CORS/Sandbox menyekat sambungan Google API. Menggunakan cache tempatan:", error);
                 
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                statusText.innerText = "Mod Luar Talian (Data Tersimpan)";
+                statusText.innerText = "Mod Paparan Cache (Luar Talian)";
+                badge.className = "flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-100 text-[11px] font-semibold text-amber-600";
+                
+                // Papar pangkalan data cache jika gagal berhubung terus
                 initDashboard();
             }
         }
 
-        // Memaparkan Senarai Ahli di dalam Jadual
         function renderTable(data) {
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
@@ -443,9 +426,9 @@
             }
 
             data.forEach((member) => {
-                const target = member.target_override || getTargetFee(member.kategori, member.nama);
+                const target = member.target_override || (getTargetFee(member.kategori, member.nama) + (member.baki_2025 || 0));
                 const percent = target > 0 ? Math.min(Math.round((member.total / target) * 100), 100) : 100;
-                const isShahira = member.nama.toUpperCase().includes("NUR SHAHIRA AINA");
+                const hasBaki2025 = member.baki_2025 > 0;
                 
                 let statusBadge = '';
                 let progressColor = 'bg-slate-200';
@@ -477,9 +460,9 @@
                     <td class="py-4 px-6">
                         <div class="font-semibold text-slate-950">
                             ${member.nama}
-                            ${isShahira ? `
-                                <div class="text-[10px] text-rose-600 font-bold uppercase mt-1 tracking-wider flex items-center gap-1 animate-pulse">
-                                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Tunggakan 2025: RM80
+                            ${hasBaki2025 ? `
+                                <div class="text-[10px] text-rose-600 font-bold uppercase mt-1 tracking-wider flex items-center gap-1">
+                                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Tunggakan 2025: RM${member.baki_2025}
                                 </div>
                             ` : ''}
                         </div>
@@ -505,7 +488,6 @@
             document.getElementById('total-count').innerText = members.length;
         }
 
-        // Menapis Data Berdasarkan Tab Penapis & Kotak Carian
         function applyFilters() {
             const searchVal = document.getElementById('search-bar').value.toLowerCase();
             const filtered = members.filter(member => {
@@ -534,7 +516,6 @@
             applyFilters();
         }
 
-        // Mengemas kini Kad KPI statistik di bahagian atas
         function updateKPIs() {
             const activeMembers = members.filter(m => m.status !== 'Pindah');
             const total = activeMembers.length;
@@ -547,7 +528,7 @@
             let activeUnpaidCount = 0;
 
             members.forEach(m => {
-                const target = m.target_override || getTargetFee(m.kategori, m.nama);
+                const target = m.target_override || (getTargetFee(m.kategori, m.nama) + (m.baki_2025 || 0));
                 currentCollected += m.total;
                 totalExpected += target;
                 if (m.total < target && m.status !== 'Pindah') {
@@ -578,12 +559,34 @@
             document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
         }
 
-        // Menjana Pecahan Bulan Mengikut Pembayaran untuk Paparan Profil (Jan-Okt)
         function generateDynamicMonthsPaid(member) {
             const name = member.nama.toUpperCase();
             const cat = member.kategori;
             const totalPaid = member.total;
-            const months = Array(10).fill().map(() => ({ paid: 0, rate: 0, active: true }));
+            const baki2025 = member.baki_2025 || 0;
+            const rate = (cat === "Guru") ? 20 : 15;
+            
+            // Jika Google Sheet membekalkan yuran bulanan secara langsung
+            if (member.monthly) {
+                return MONTHS.map(mName => {
+                    const paid = member.monthly[mName] || 0;
+                    let active = true;
+                    let currentRate = rate;
+                    
+                    if (name.includes("NORAMIRA") && (mName === "JAN" || mName === "FEB")) {
+                        active = false;
+                        currentRate = 0;
+                    }
+                    if (name.includes("NUUR SHARIZAH") && !(mName === "JAN" || mName === "FEB")) {
+                        active = false;
+                        currentRate = 0;
+                    }
+                    return { paid: paid, rate: currentRate, active: active };
+                });
+            }
+
+            // Fallback: Pengiraan pintar berdasarkan jumlah pembayaran semasa sekiranya tiada yuran bulanan
+            const months = Array(10).fill().map(() => ({ paid: 0, rate: rate, active: true }));
 
             if (name.includes("NUUR SHARIZAH")) {
                 let remaining = totalPaid;
@@ -611,43 +614,29 @@
                 return months;
             }
 
-            if (name.includes("NUR SHAHIRA AINA")) {
-                // RM80 ditolak untuk tunggakan 2025 dahulu
-                let for2026 = Math.max(totalPaid - 80, 0);
-                for (let i = 0; i < 10; i++) {
-                    let allocated = Math.min(for2026, 20);
-                    months[i] = { paid: allocated, rate: 20, active: true };
-                    for2026 -= allocated;
-                }
-                return months;
-            }
-
-            const rate = (cat === "Guru") ? 20 : 15;
-            let remaining = totalPaid;
+            // Tolak Baki 2025 terlebih dahulu sebelum baki disalurkan ke yuran semasa
+            let remainingForCurrentYear = Math.max(totalPaid - baki2025, 0);
             for (let i = 0; i < 10; i++) {
-                let allocated = Math.min(remaining, rate);
+                let allocated = Math.min(remainingForCurrentYear, rate);
                 months[i] = { paid: allocated, rate: rate, active: true };
-                remaining -= allocated;
+                remainingForCurrentYear -= allocated;
             }
             return months;
         }
 
-        // Membuka Panel Profil Kewangan Slaid-Masuk (Drawer)
         function openDrawer(bil) {
             const member = members.find(m => m.bil === bil);
             if (!member) return;
 
             currentOpenBil = bil;
-            const target = member.target_override || getTargetFee(member.kategori, member.nama);
+            const target = member.target_override || (getTargetFee(member.kategori, member.nama) + (member.baki_2025 || 0));
             const arrears = Math.max(target - member.total, 0);
 
-            // Memasukkan data ke dalam medan teks
             document.getElementById('detail-member-name').innerText = member.nama;
             document.getElementById('detail-member-cat').innerText = member.kategori;
             document.getElementById('detail-member-total').innerText = `RM ${member.total}`;
             document.getElementById('detail-member-arrears').innerText = `RM ${arrears}`;
 
-            // Menetapkan gaya status lunas yang kemas
             const statusEl = document.getElementById('detail-member-status');
             statusEl.innerText = member.status;
             if (member.status === 'Selesai') {
@@ -660,17 +649,15 @@
                 statusEl.className = "text-[10px] bg-rose-50 text-rose-600 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider";
             }
 
-            // Memeriksa kes khas Nur Shahira Aina untuk tunggakan RM80
+            // Memeriksa baki tunggakan 2025 (Nur Shahira Aina atau sesiapa sahaja yang mempunyai Baki 2025 di Sheet)
             const noticeBox = document.getElementById('detail-notice-box');
-            const upperName = member.nama.toUpperCase();
-
-            if (upperName.includes("NUR SHAHIRA AINA")) {
+            if (member.baki_2025 > 0) {
+                document.getElementById('notice-box-amount').innerText = `RM ${member.baki_2025.toFixed(2)}`;
                 noticeBox.classList.remove('hidden');
             } else {
                 noticeBox.classList.add('hidden');
             }
 
-            // Membina grid status bulanan
             const monthsData = generateDynamicMonthsPaid(member);
             const monthsContainer = document.getElementById('detail-months-container');
             monthsContainer.innerHTML = '';
@@ -709,7 +696,6 @@
                 monthsContainer.appendChild(div);
             });
 
-            // Membuka animasi slaid drawer dari sebelah kanan
             const drawer = document.getElementById('detail-drawer');
             const drawerContainer = document.getElementById('drawer-container');
             
@@ -731,7 +717,6 @@
             }, 300);
         }
 
-        // Paparan Makluman Toast Ringkas
         function showToast(message) {
             const toast = document.getElementById('notification-toast');
             document.getElementById('toast-message').innerText = message;
@@ -743,13 +728,12 @@
             }, 3000);
         }
 
-        // Mengeksport senarai penuh ahli ke fail CSV bersih
         function exportToCSV() {
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "ID,NAMA,KATEGORI,DIBAYAR_RM,SASARAN_RM,STATUS,JAN,FEB,MAC,APR,MEI,JUN,JUL,OGOS,SEP,OKT\n";
 
             members.forEach(m => {
-                const target = m.target_override || getTargetFee(m.kategori, m.nama);
+                const target = m.target_override || (getTargetFee(m.kategori, m.nama) + (m.baki_2025 || 0));
                 const monthsData = generateDynamicMonthsPaid(m);
                 const monthsStr = monthsData.map(v => v.active ? v.paid : "N/A").join(",");
                 
