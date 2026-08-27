@@ -1,779 +1,3545 @@
 <!DOCTYPE html>
 <html lang="ms" class="h-full bg-slate-50/50">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kebajikan SASERA 2026</title>
-    <!-- Tailwind CSS untuk reka bentuk premium berkualiti tinggi -->
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard Kebajikan SASERA 2026
+    </title>
+
+
+    <!-- =========================================================
+         TAILWIND CSS
+         ========================================================= -->
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons untuk ikonografi moden -->
+
+
+    <!-- =========================================================
+         LUCIDE ICONS
+         ========================================================= -->
+
     <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <!-- =========================================================
+         TAILWIND CONFIG
+         ========================================================= -->
+
     <script>
+
         tailwind.config = {
+
             theme: {
+
                 extend: {
+
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+
+                        sans: [
+                            'Inter',
+                            'system-ui',
+                            'sans-serif'
+                        ]
+
                     },
+
                     boxShadow: {
-                        'premium': '0 10px 30px -10px rgba(148, 163, 184, 0.12), 0 1px 3px -1px rgba(148, 163, 184, 0.08)',
-                        'glow': '0 0 20px -3px rgba(99, 102, 241, 0.15)',
+
+                        premium:
+                            '0 10px 30px -10px rgba(148, 163, 184, 0.12), 0 1px 3px -1px rgba(148, 163, 184, 0.08)',
+
+                        glow:
+                            '0 0 20px -3px rgba(99, 102, 241, 0.15)'
+
                     }
+
                 }
+
             }
-        }
+
+        };
+
     </script>
+
+
+    <!-- =========================================================
+         STYLE
+         ========================================================= -->
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        @import url(
+            'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'
+        );
+
+
         body {
+
             font-family: 'Inter', sans-serif;
+
             -webkit-tap-highlight-color: transparent;
+
         }
+
+
         ::-webkit-scrollbar {
+
             width: 6px;
             height: 6px;
+
         }
+
+
         ::-webkit-scrollbar-track {
+
             background: #f8fafc;
+
         }
+
+
         ::-webkit-scrollbar-thumb {
+
             background: #cbd5e1;
+
             border-radius: 9999px;
+
         }
+
+
         ::-webkit-scrollbar-thumb:hover {
+
             background: #94a3b8;
+
         }
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+                transform: translateY(4px);
+
+            }
+
+            to {
+
+                opacity: 1;
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+        .fade-in {
+
+            animation: fadeIn 0.25s ease-out;
+
+        }
+
     </style>
+
 </head>
-<body class="min-h-full text-slate-800 flex flex-col antialiased bg-slate-50/50">
 
-    <!-- TOP GLASSMORPHIC HEADER -->
-    <header class="border-b border-slate-200/60 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
+<body
+    class="min-h-full text-slate-800 flex flex-col antialiased bg-slate-50/50"
+>
+
+
+    <!-- =========================================================
+         TOP HEADER
+         ========================================================= -->
+
+    <header
+        class="border-b border-slate-200/60 bg-white/80 backdrop-blur-md sticky top-0 z-40"
+    >
+
+        <div
+            class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between"
+        >
+
+
+            <!-- BRAND -->
+
             <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-indigo-200 shadow-lg">
-                    <i data-lucide="wallet-cards" class="w-5 h-5"></i>
+
+                <div
+                    class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-indigo-200 shadow-lg"
+                >
+
+                    <i
+                        data-lucide="wallet-cards"
+                        class="w-5 h-5"
+                    ></i>
+
                 </div>
+
+
                 <div>
-                    <h1 class="text-sm font-extrabold tracking-tight text-slate-900 uppercase flex items-center gap-2">
-                        SASERA YURAN <span class="bg-indigo-100 text-indigo-700 text-[10px] px-2 py-0.5 rounded-full font-bold">2026</span>
+
+                    <h1
+                        class="text-sm font-extrabold tracking-tight text-slate-900 uppercase flex items-center gap-2"
+                    >
+
+                        SASERA YURAN
+
+                        <span
+                            class="bg-indigo-100 text-indigo-700 text-[10px] px-2 py-0.5 rounded-full font-bold"
+                        >
+                            2026
+                        </span>
+
                     </h1>
-                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">SK SATU SULTAN ALAM SHAH // ERAT & RAHMAH</p>
+
+
+                    <p
+                        class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold"
+                    >
+
+                        SK SATU SULTAN ALAM SHAH
+                        //
+                        ERAT & RAHMAH
+
+                    </p>
+
                 </div>
+
             </div>
 
-            <!-- STATUS LIVE SYNC -->
+
+            <!-- LIVE SYNC -->
+
             <div class="flex items-center gap-2.5">
-                <button onclick="syncFromAPI()" id="sync-btn" class="p-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 shadow-sm transition-all duration-300 active:scale-95 group" title="Segerakkan Google Sheet">
-                    <i data-lucide="refresh-cw" id="sync-icon" class="w-4 h-4 transition duration-700"></i>
+
+                <button
+                    onclick="syncFromAPI()"
+                    id="sync-btn"
+                    class="p-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 shadow-sm transition-all duration-300 active:scale-95"
+                    title="Segerakkan Google Sheet"
+                >
+
+                    <i
+                        data-lucide="refresh-cw"
+                        id="sync-icon"
+                        class="w-4 h-4 transition duration-700"
+                    ></i>
+
                 </button>
-                <div id="sync-badge" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600 shadow-sm transition-all duration-300">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" id="status-indicator-dot"></span>
-                    <span id="sync-status-text">Menghubung...</span>
+
+
+                <div
+                    id="sync-badge"
+                    class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600 shadow-sm transition-all duration-300"
+                >
+
+                    <span
+                        id="status-indicator-dot"
+                        class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"
+                    ></span>
+
+
+                    <span id="sync-status-text">
+                        Menghubung...
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
+
     </header>
 
-    <!-- MAIN WRAPPER -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
 
-        <!-- KAD METRIK RINGKASAN & STATS -->
-        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- JUMLAH AHLI -->
-            <div class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-indigo-200 transition-all duration-300">
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main
+        class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6"
+    >
+
+
+        <!-- =====================================================
+             KPI
+             ===================================================== -->
+
+        <section
+            class="grid grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+
+
+            <!-- AHLI AKTIF -->
+
+            <div
+                class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-indigo-200 transition-all duration-300"
+            >
+
                 <div class="flex justify-between items-start">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Ahli Aktif</span>
-                    <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><i data-lucide="users" class="w-4 h-4"></i></span>
+
+                    <span
+                        class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"
+                    >
+                        Ahli Aktif
+                    </span>
+
+
+                    <span
+                        class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"
+                    >
+
+                        <i
+                            data-lucide="users"
+                            class="w-4 h-4"
+                        ></i>
+
+                    </span>
+
                 </div>
+
+
                 <div class="flex items-baseline gap-2 mt-3">
-                    <h3 class="text-3xl font-extrabold text-slate-900" id="kpi-total">0</h3>
-                    <span class="text-[10px] text-slate-500 font-semibold" id="kpi-breakdown">0 Guru | 0 AKP</span>
+
+                    <h3
+                        id="kpi-total"
+                        class="text-3xl font-extrabold text-slate-900"
+                    >
+                        0
+                    </h3>
+
+
+                    <span
+                        id="kpi-breakdown"
+                        class="text-[10px] text-slate-500 font-semibold"
+                    >
+                        0 Guru | 0 AKP
+                    </span>
+
                 </div>
-                <div class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
-                    <div class="bg-indigo-500 h-full w-full"></div>
+
+
+                <div
+                    class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden"
+                >
+
+                    <div
+                        class="bg-indigo-500 h-full w-full"
+                    ></div>
+
                 </div>
+
             </div>
 
-            <!-- SELESAI BAYAR -->
-            <div class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-emerald-200 transition-all duration-300">
+
+
+            <!-- LUNAS -->
+
+            <div
+                class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-emerald-200 transition-all duration-300"
+            >
+
                 <div class="flex justify-between items-start">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Lunas Penuh</span>
-                    <span class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg"><i data-lucide="check-circle-2" class="w-4 h-4"></i></span>
+
+                    <span
+                        class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"
+                    >
+                        Lunas Penuh
+                    </span>
+
+
+                    <span
+                        class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg"
+                    >
+
+                        <i
+                            data-lucide="check-circle-2"
+                            class="w-4 h-4"
+                        ></i>
+
+                    </span>
+
                 </div>
+
+
                 <div class="flex items-baseline gap-2 mt-3">
-                    <h3 class="text-3xl font-extrabold text-emerald-600" id="kpi-selesai">0</h3>
-                    <span class="text-[10px] text-slate-500 font-semibold" id="kpi-selesai-percent">0%</span>
+
+                    <h3
+                        id="kpi-selesai"
+                        class="text-3xl font-extrabold text-emerald-600"
+                    >
+                        0
+                    </h3>
+
+
+                    <span
+                        id="kpi-selesai-percent"
+                        class="text-[10px] text-slate-500 font-semibold"
+                    >
+                        0%
+                    </span>
+
                 </div>
-                <div class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
-                    <div id="kpi-selesai-bar" class="bg-emerald-500 h-full transition-all duration-1000" style="width: 0%"></div>
+
+
+                <div
+                    class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden"
+                >
+
+                    <div
+                        id="kpi-selesai-bar"
+                        class="bg-emerald-500 h-full transition-all duration-1000"
+                        style="width: 0%"
+                    ></div>
+
                 </div>
+
             </div>
 
-            <!-- BAKI TUNGGAKAN -->
-            <div class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-rose-200 transition-all duration-300">
+
+
+            <!-- TUNGGAKAN -->
+
+            <div
+                class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-rose-200 transition-all duration-300"
+            >
+
                 <div class="flex justify-between items-start">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Baki Tunggakan</span>
-                    <span class="p-1.5 bg-rose-50 text-rose-600 rounded-lg"><i data-lucide="alert-triangle" class="w-4 h-4"></i></span>
+
+                    <span
+                        class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"
+                    >
+                        Baki Tunggakan
+                    </span>
+
+
+                    <span
+                        class="p-1.5 bg-rose-50 text-rose-600 rounded-lg"
+                    >
+
+                        <i
+                            data-lucide="alert-triangle"
+                            class="w-4 h-4"
+                        ></i>
+
+                    </span>
+
                 </div>
+
+
                 <div class="flex items-baseline gap-2 mt-3">
-                    <h3 class="text-2xl font-extrabold text-rose-600" id="kpi-tunggakan-rm">RM 0</h3>
-                    <span class="text-[10px] text-slate-500 font-semibold shrink-0" id="kpi-tunggakan-count">0 Orang</span>
+
+                    <h3
+                        id="kpi-tunggakan-rm"
+                        class="text-2xl font-extrabold text-rose-600"
+                    >
+                        RM 0.00
+                    </h3>
+
+
+                    <span
+                        id="kpi-tunggakan-count"
+                        class="text-[10px] text-slate-500 font-semibold shrink-0"
+                    >
+                        0 Orang
+                    </span>
+
                 </div>
-                <div class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
-                    <div id="kpi-tunggakan-bar" class="bg-rose-500 h-full transition-all duration-1000" style="width: 0%"></div>
+
+
+                <div
+                    class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden"
+                >
+
+                    <div
+                        id="kpi-tunggakan-bar"
+                        class="bg-rose-500 h-full transition-all duration-1000"
+                        style="width: 0%"
+                    ></div>
+
                 </div>
+
             </div>
 
-            <!-- KUTIPAN TERKUMPUL -->
-            <div class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-slate-400 transition-all duration-300">
+
+
+            <!-- DANA TERKUMPUL -->
+
+            <div
+                class="bg-white border border-slate-200/70 p-5 rounded-2xl shadow-premium relative overflow-hidden group hover:border-slate-400 transition-all duration-300"
+            >
+
                 <div class="flex justify-between items-start">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Dana Terkumpul</span>
-                    <span class="p-1.5 bg-slate-100 text-slate-700 rounded-lg"><i data-lucide="piggy-bank" class="w-4 h-4"></i></span>
+
+                    <span
+                        class="text-[11px] font-bold text-slate-400 uppercase tracking-wider"
+                    >
+                        Dana Terkumpul
+                    </span>
+
+
+                    <span
+                        class="p-1.5 bg-slate-100 text-slate-700 rounded-lg"
+                    >
+
+                        <i
+                            data-lucide="piggy-bank"
+                            class="w-4 h-4"
+                        ></i>
+
+                    </span>
+
                 </div>
-                <div class="flex items-baseline gap-1 mt-3 overflow-hidden">
-                    <h3 class="text-2xl font-extrabold text-slate-900 truncate" id="kpi-collected-rm">RM 0</h3>
-                    <span class="text-[9px] text-slate-400 font-bold shrink-0" id="kpi-target-rm">/ RM 0</span>
+
+
+                <div
+                    class="flex items-baseline gap-1 mt-3 overflow-hidden"
+                >
+
+                    <h3
+                        id="kpi-collected-rm"
+                        class="text-2xl font-extrabold text-slate-900 truncate"
+                    >
+                        RM 0.00
+                    </h3>
+
+
+                    <span
+                        id="kpi-target-rm"
+                        class="text-[9px] text-slate-400 font-bold shrink-0"
+                    >
+                        / RM 0
+                    </span>
+
                 </div>
-                <div class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
-                    <div id="overall-progress-bar" class="bg-slate-800 h-full transition-all duration-1000" style="width: 0%"></div>
+
+
+                <div
+                    class="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden"
+                >
+
+                    <div
+                        id="overall-progress-bar"
+                        class="bg-slate-800 h-full transition-all duration-1000"
+                        style="width: 0%"
+                    ></div>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- STRUKTUR YURAN INFO BANNER -->
-        <section class="bg-gradient-to-r from-indigo-50/70 to-slate-50 border border-indigo-100 p-5 rounded-2xl shadow-premium flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+
+        <!-- =====================================================
+             INFO YURAN
+             ===================================================== -->
+
+        <section
+            class="bg-gradient-to-r from-indigo-50/70 to-slate-50 border border-indigo-100 p-5 rounded-2xl shadow-premium flex flex-col md:flex-row md:items-center justify-between gap-4"
+        >
+
             <div class="flex items-start gap-3.5">
-                <div class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-md shrink-0">
-                    <i data-lucide="info" class="w-5 h-5"></i>
+
+                <div
+                    class="p-2.5 bg-indigo-600 text-white rounded-xl shadow-md shrink-0"
+                >
+
+                    <i
+                        data-lucide="info"
+                        class="w-5 h-5"
+                    ></i>
+
                 </div>
+
+
                 <div>
-                    <h4 class="text-sm font-bold text-slate-900 uppercase tracking-tight">Ketetapan Polisi & Struktur Yuran Kebajikan SASERA 2026</h4>
-                    <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Kutipan yuran kebajikan rasmi diselaraskan secara prorata selama <strong>10 bulan (Januari - Oktober)</strong> seperti berikut:</p>
+
+                    <h4
+                        class="text-sm font-bold text-slate-900 uppercase tracking-tight"
+                    >
+                        Ketetapan Polisi & Struktur Yuran Kebajikan SASERA 2026
+                    </h4>
+
+
+                    <p
+                        class="text-xs text-slate-500 mt-0.5 leading-relaxed"
+                    >
+
+                        Kutipan yuran kebajikan rasmi diselaraskan secara prorata selama
+                        <strong>
+                            10 bulan (Januari - Oktober)
+                        </strong>
+                        seperti berikut:
+
+                    </p>
+
                 </div>
+
             </div>
-            <div class="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:gap-4 shrink-0">
-                <div class="bg-white border border-slate-200/60 px-4 py-2.5 rounded-xl flex items-center gap-2.5 shadow-sm">
-                    <div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>
+
+
+            <div
+                class="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:gap-4 shrink-0"
+            >
+
+                <div
+                    class="bg-white border border-slate-200/60 px-4 py-2.5 rounded-xl flex items-center gap-2.5 shadow-sm"
+                >
+
+                    <div
+                        class="w-2.5 h-2.5 rounded-full bg-indigo-500"
+                    ></div>
+
+
                     <div>
-                        <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">GURU</span>
-                        <span class="text-xs font-extrabold text-slate-900">RM 200.00 <span class="text-[10px] text-slate-400 font-medium">/ RM20 bln</span></span>
+
+                        <span
+                            class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block"
+                        >
+                            GURU
+                        </span>
+
+
+                        <span
+                            class="text-xs font-extrabold text-slate-900"
+                        >
+
+                            RM 200.00
+
+                            <span
+                                class="text-[10px] text-slate-400 font-medium"
+                            >
+                                / RM20 bln
+                            </span>
+
+                        </span>
+
                     </div>
+
                 </div>
-                <div class="bg-white border border-slate-200/60 px-4 py-2.5 rounded-xl flex items-center gap-2.5 shadow-sm">
-                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+
+
+                <div
+                    class="bg-white border border-slate-200/60 px-4 py-2.5 rounded-xl flex items-center gap-2.5 shadow-sm"
+                >
+
+                    <div
+                        class="w-2.5 h-2.5 rounded-full bg-emerald-500"
+                    ></div>
+
+
                     <div>
-                        <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">AKP</span>
-                        <span class="text-xs font-extrabold text-slate-900">RM 150.00 <span class="text-[10px] text-slate-400 font-medium">/ RM15 bln</span></span>
+
+                        <span
+                            class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block"
+                        >
+                            AKP
+                        </span>
+
+
+                        <span
+                            class="text-xs font-extrabold text-slate-900"
+                        >
+
+                            RM 150.00
+
+                            <span
+                                class="text-[10px] text-slate-400 font-medium"
+                            >
+                                / RM15 bln
+                            </span>
+
+                        </span>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- CARIAN & PENAPIS -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-200/70 shadow-premium flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <!-- Carian -->
-            <div class="relative w-full lg:max-w-md">
-                <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400"></i>
-                <input type="text" id="search-bar" oninput="applyFilters()" placeholder="Cari nama ahli kebajikan..." class="w-full pl-11 pr-4 py-2.5 bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-400">
+
+
+        <!-- =====================================================
+             SEARCH & FILTER
+             ===================================================== -->
+
+        <section
+            class="bg-white p-4 rounded-2xl border border-slate-200/70 shadow-premium flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+        >
+
+            <div
+                class="relative w-full lg:max-w-md"
+            >
+
+                <i
+                    data-lucide="search"
+                    class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
+                ></i>
+
+
+                <input
+                    type="text"
+                    id="search-bar"
+                    oninput="applyFilters()"
+                    placeholder="Cari nama ahli kebajikan..."
+                    class="w-full pl-11 pr-4 py-2.5 bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-400"
+                >
+
             </div>
 
-            <!-- Filter Tabs -->
-            <div class="flex flex-wrap items-center gap-1.5">
-                <button onclick="filterStatus('semua', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-indigo-600 text-white shadow-md shadow-indigo-100">Semua</button>
-                <button onclick="filterStatus('Guru', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600">Guru</button>
-                <button onclick="filterStatus('AKP', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600">AKP</button>
-                <button onclick="filterStatus('Selesai', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600">Lunas</button>
-                <button onclick="filterStatus('Separa', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600">Separa</button>
-                <button onclick="filterStatus('Tunggakan', this)" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600">Belum Selesai</button>
-                
-                <button onclick="exportToCSV()" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all shadow-sm shrink-0 md:ml-2" title="Eksport Fail CSV">
-                    <i data-lucide="download" class="w-4 h-4"></i>
+
+            <div
+                class="flex flex-wrap items-center gap-1.5"
+            >
+
+                <button
+                    onclick="filterStatus('semua', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-indigo-600 text-white shadow-md shadow-indigo-100"
+                >
+                    Semua
                 </button>
+
+
+                <button
+                    onclick="filterStatus('Guru', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600"
+                >
+                    Guru
+                </button>
+
+
+                <button
+                    onclick="filterStatus('AKP', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600"
+                >
+                    AKP
+                </button>
+
+
+                <button
+                    onclick="filterStatus('Selesai', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600"
+                >
+                    Lunas
+                </button>
+
+
+                <button
+                    onclick="filterStatus('Separa', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600"
+                >
+                    Separa
+                </button>
+
+
+                <button
+                    onclick="filterStatus('Tunggakan', this)"
+                    class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600"
+                >
+                    Belum Selesai
+                </button>
+
+
+                <button
+                    onclick="exportToCSV()"
+                    class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all shadow-sm shrink-0 md:ml-2"
+                    title="Eksport Fail CSV"
+                >
+
+                    <i
+                        data-lucide="download"
+                        class="w-4 h-4"
+                    ></i>
+
+                </button>
+
             </div>
+
         </section>
 
-        <!-- JADUAL SENARAI AHLI -->
-        <section class="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-premium">
+
+
+        <!-- =====================================================
+             TABLE
+             ===================================================== -->
+
+        <section
+            class="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-premium"
+        >
+
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse min-w-[700px]">
+
+                <table
+                    class="w-full text-left border-collapse min-w-[700px]"
+                >
+
                     <thead>
-                        <tr class="bg-slate-50 border-b border-slate-100 text-slate-400 text-[11px] font-bold uppercase tracking-widest">
-                            <th class="py-4 px-6 text-center w-20">No. BIL</th>
-                            <th class="py-4 px-6">Nama Ahli</th>
-                            <th class="py-4 px-6 text-center w-28">Kategori</th>
-                            <th class="py-4 px-6 text-right w-36">Jumlah Bayar</th>
-                            <th class="py-4 px-6 text-right w-32">Sasaran</th>
-                            <th class="py-4 px-6 text-center w-40">Kemajuan</th>
-                            <th class="py-4 px-6 text-center w-36">Status</th>
+
+                        <tr
+                            class="bg-slate-50 border-b border-slate-100 text-slate-400 text-[11px] font-bold uppercase tracking-widest"
+                        >
+
+                            <th
+                                class="py-4 px-6 text-center w-20"
+                            >
+                                No. BIL
+                            </th>
+
+
+                            <th class="py-4 px-6">
+                                Nama Ahli
+                            </th>
+
+
+                            <th
+                                class="py-4 px-6 text-center w-28"
+                            >
+                                Kategori
+                            </th>
+
+
+                            <th
+                                class="py-4 px-6 text-right w-36"
+                            >
+                                Jumlah Bayar
+                            </th>
+
+
+                            <th
+                                class="py-4 px-6 text-right w-32"
+                            >
+                                Sasaran
+                            </th>
+
+
+                            <th
+                                class="py-4 px-6 text-center w-40"
+                            >
+                                Kemajuan
+                            </th>
+
+
+                            <th
+                                class="py-4 px-6 text-center w-36"
+                            >
+                                Status
+                            </th>
+
                         </tr>
+
                     </thead>
-                    <tbody id="table-body" class="divide-y divide-slate-100 text-sm text-slate-600">
-                        <!-- Shimmer loading effect -->
-                        <tr class="shimmer-row">
-                            <td colspan="7" class="py-12 text-center text-slate-400">
-                                <div class="flex justify-center items-center gap-2">
-                                    <span class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce"></span>
-                                    <span class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                    <span class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                                    <span class="text-xs font-semibold tracking-wider text-slate-500 ml-2">Mendapatkan data dari Google Sheet...</span>
+
+
+                    <tbody
+                        id="table-body"
+                        class="divide-y divide-slate-100 text-sm text-slate-600"
+                    >
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="py-12 text-center text-slate-400"
+                            >
+
+                                <div
+                                    class="flex justify-center items-center gap-2"
+                                >
+
+                                    <span
+                                        class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce"
+                                    ></span>
+
+                                    <span
+                                        class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.2s]"
+                                    ></span>
+
+                                    <span
+                                        class="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce [animation-delay:0.4s]"
+                                    ></span>
+
+
+                                    <span
+                                        class="text-xs font-semibold tracking-wider text-slate-500 ml-2"
+                                    >
+                                        Mendapatkan data dari Google Sheet...
+                                    </span>
+
                                 </div>
+
                             </td>
+
                         </tr>
+
                     </tbody>
+
                 </table>
+
             </div>
 
-            <!-- FOOTER JADUAL -->
-            <div class="bg-slate-50/50 px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-bold uppercase tracking-wider">
-                <div>Jumlah Rekod: <span id="showing-count" class="text-indigo-600 font-extrabold">0</span> / <span id="total-count" class="text-slate-400">0</span></div>
-                <div class="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Live Sambungan Aktif</span>
+
+            <!-- FOOTER -->
+
+            <div
+                class="bg-slate-50/50 px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-500 font-bold uppercase tracking-wider"
+            >
+
+                <div>
+
+                    Jumlah Rekod:
+
+                    <span
+                        id="showing-count"
+                        class="text-indigo-600 font-extrabold"
+                    >
+                        0
+                    </span>
+
+                    /
+
+                    <span
+                        id="total-count"
+                        class="text-slate-400"
+                    >
+                        0
+                    </span>
+
                 </div>
+
+
+                <div
+                    class="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100"
+                >
+
+                    <span
+                        class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                    ></span>
+
+
+                    <span>
+                        Live Sambungan Aktif
+                    </span>
+
+                </div>
+
             </div>
+
         </section>
+
     </main>
 
-    <!-- SLIDE-OVER DRAWER DETAILES -->
-    <div id="detail-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 overflow-hidden">
-            <!-- Overlay -->
-            <div onclick="closeDrawer()" class="absolute inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity duration-300"></div>
 
-            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                <div class="pointer-events-auto w-screen max-w-lg transform bg-white border-l border-slate-200/80 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 translate-x-full" id="drawer-container">
-                    
-                    <div class="space-y-6 overflow-y-auto pr-1">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-                            <span class="text-[10px] bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg font-extrabold uppercase tracking-widest">Profil Kewangan Ahli</span>
-                            <button onclick="closeDrawer()" class="text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition-all">
-                                <i data-lucide="x" class="w-5 h-5"></i>
+
+    <!-- =========================================================
+         DRAWER
+         ========================================================= -->
+
+    <div
+        id="detail-drawer"
+        class="fixed inset-0 z-50 overflow-hidden hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div
+            class="absolute inset-0 overflow-hidden"
+        >
+
+            <!-- OVERLAY -->
+
+            <div
+                onclick="closeDrawer()"
+                class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+            ></div>
+
+
+            <div
+                class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
+            >
+
+                <div
+                    id="drawer-container"
+                    class="pointer-events-auto w-screen max-w-lg transform bg-white border-l border-slate-200/80 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 translate-x-full"
+                >
+
+
+                    <div
+                        class="space-y-6 overflow-y-auto pr-1"
+                    >
+
+
+                        <!-- DRAWER HEADER -->
+
+                        <div
+                            class="flex items-center justify-between border-b border-slate-100 pb-4"
+                        >
+
+                            <span
+                                class="text-[10px] bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg font-extrabold uppercase tracking-widest"
+                            >
+                                Profil Kewangan Ahli
+                            </span>
+
+
+                            <button
+                                onclick="closeDrawer()"
+                                class="text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition-all"
+                            >
+
+                                <i
+                                    data-lucide="x"
+                                    class="w-5 h-5"
+                                ></i>
+
                             </button>
-                        </div>
-                        
-                        <!-- Butiran Ahli -->
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/50">
-                            <h3 id="detail-member-name" class="text-base font-extrabold tracking-tight text-slate-900 uppercase leading-snug">Sila Tunggu...</h3>
-                            <div class="flex gap-2 mt-3">
-                                <span id="detail-member-cat" class="text-[10px] bg-white border border-slate-200 px-2.5 py-1 rounded-md text-slate-500 uppercase font-bold tracking-widest"></span>
-                                <span id="detail-member-status" class="text-[10px] px-2.5 py-1 rounded-md uppercase font-bold tracking-widest"></span>
-                            </div>
-                        </div>
-                        
-                        <!-- Ringkasan Poket Kewangan Sebenar -->
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="bg-indigo-50/50 border border-indigo-100 p-4 rounded-2xl">
-                                <span class="text-[10px] text-indigo-500 font-extrabold uppercase tracking-wider block">Telah Dibayar</span>
-                                <p id="detail-member-total" class="text-xl font-black text-indigo-950 mt-1">RM 0</p>
-                            </div>
-                            <div class="bg-rose-50/50 border border-rose-100 p-4 rounded-2xl">
-                                <span class="text-[10px] text-rose-500 font-extrabold uppercase tracking-wider block">Baki Tunggakan</span>
-                                <p id="detail-member-arrears" class="text-xl font-black text-rose-600 mt-1">RM 0</p>
-                            </div>
+
                         </div>
 
-                        <!-- KOTAK NOTA TUNGGAKAN 2025 -->
-                        <div id="detail-notice-box" class="hidden bg-rose-50 border border-rose-100/80 p-4 rounded-2xl flex items-start gap-3">
-                            <div class="p-1.5 bg-rose-100 text-rose-600 rounded-lg shrink-0">
-                                <i data-lucide="info" class="w-4 h-4"></i>
+
+
+                        <!-- MEMBER -->
+
+                        <div
+                            class="bg-slate-50 p-4 rounded-2xl border border-slate-200/50"
+                        >
+
+                            <h3
+                                id="detail-member-name"
+                                class="text-base font-extrabold tracking-tight text-slate-900 uppercase leading-snug"
+                            >
+                                Sila Tunggu...
+                            </h3>
+
+
+                            <div
+                                class="flex gap-2 mt-3"
+                            >
+
+                                <span
+                                    id="detail-member-cat"
+                                    class="text-[10px] bg-white border border-slate-200 px-2.5 py-1 rounded-md text-slate-500 uppercase font-bold tracking-widest"
+                                ></span>
+
+
+                                <span
+                                    id="detail-member-status"
+                                    class="text-[10px] px-2.5 py-1 rounded-md uppercase font-bold tracking-widest"
+                                ></span>
+
                             </div>
+
+                        </div>
+
+
+
+                        <!-- FINANCIAL SUMMARY -->
+
+                        <div
+                            class="grid grid-cols-2 gap-3"
+                        >
+
+                            <div
+                                class="bg-indigo-50/50 border border-indigo-100 p-4 rounded-2xl"
+                            >
+
+                                <span
+                                    class="text-[10px] text-indigo-500 font-extrabold uppercase tracking-wider block"
+                                >
+                                    Telah Dibayar
+                                </span>
+
+
+                                <p
+                                    id="detail-member-total"
+                                    class="text-xl font-black text-indigo-950 mt-1"
+                                >
+                                    RM 0.00
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                class="bg-rose-50/50 border border-rose-100 p-4 rounded-2xl"
+                            >
+
+                                <span
+                                    class="text-[10px] text-rose-500 font-extrabold uppercase tracking-wider block"
+                                >
+                                    Baki Tunggakan
+                                </span>
+
+
+                                <p
+                                    id="detail-member-arrears"
+                                    class="text-xl font-black text-rose-600 mt-1"
+                                >
+                                    RM 0.00
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- 2025 NOTICE -->
+
+                        <div
+                            id="detail-notice-box"
+                            class="hidden bg-rose-50 border border-rose-100/80 p-4 rounded-2xl flex items-start gap-3"
+                        >
+
+                            <div
+                                class="p-1.5 bg-rose-100 text-rose-600 rounded-lg shrink-0"
+                            >
+
+                                <i
+                                    data-lucide="info"
+                                    class="w-4 h-4"
+                                ></i>
+
+                            </div>
+
+
                             <div>
-                                <span class="text-[10px] font-extrabold text-rose-600 uppercase tracking-widest">Pelarasan Tunggakan 2025</span>
-                                <p class="text-xs text-rose-700 mt-1 font-medium leading-relaxed">Ahli ini mempunyai baki tunggakan tahun lepas (2025) sebanyak <strong class="text-rose-950 font-bold" id="notice-box-amount">RM 0.00</strong> yang belum dijelaskan. Sasaran tahun 2026 telah dilaraskan bagi meliputi tunggakan tersebut.</p>
+
+                                <span
+                                    class="text-[10px] font-extrabold text-rose-600 uppercase tracking-widest"
+                                >
+                                    Pelarasan Tunggakan 2025
+                                </span>
+
+
+                                <p
+                                    class="text-xs text-rose-700 mt-1 font-medium leading-relaxed"
+                                >
+
+                                    Ahli ini mempunyai baki tunggakan tahun lepas (2025) sebanyak
+
+                                    <strong
+                                        id="notice-box-amount"
+                                        class="text-rose-950 font-bold"
+                                    >
+                                        RM 0.00
+                                    </strong>
+
+                                    yang belum dijelaskan.
+
+                                    Sasaran tahun 2026 telah dilaraskan bagi meliputi tunggakan tersebut.
+
+                                </p>
+
                             </div>
+
                         </div>
 
-                        <!-- JADUAL PECAHAN BULANAN JAN-OKT SEBENAR -->
+
+
+                        <!-- MONTHS -->
+
                         <div>
-                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block mb-3">Pecahan Alokasi Yuran Semasa (Jan-Okt)</span>
-                            <div id="detail-months-container" class="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                                <!-- Kotak-kotak bulan dijana dari JS -->
-                            </div>
+
+                            <span
+                                class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block mb-3"
+                            >
+                                Pecahan Alokasi Yuran Semasa (Jan-Okt)
+                            </span>
+
+
+                            <div
+                                id="detail-months-container"
+                                class="grid grid-cols-2 sm:grid-cols-5 gap-2"
+                            ></div>
+
                         </div>
+
                     </div>
 
-                    <div class="border-t border-slate-100 pt-4 mt-6">
-                        <button onclick="closeDrawer()" class="w-full py-3 bg-slate-900 text-white hover:bg-slate-800 font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-slate-200 transition-all">
+
+
+                    <!-- CLOSE -->
+
+                    <div
+                        class="border-t border-slate-100 pt-4 mt-6"
+                    >
+
+                        <button
+                            onclick="closeDrawer()"
+                            class="w-full py-3 bg-slate-900 text-white hover:bg-slate-800 font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-slate-200 transition-all"
+                        >
                             Tutup Butiran
                         </button>
+
                     </div>
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- NOTIFIKASI TOAST -->
-    <div id="notification-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 translate-y-20 opacity-0 z-50 border border-slate-800">
-        <div class="p-1 bg-indigo-600/20 text-indigo-400 rounded-lg" id="toast-icon-bg">
-            <i data-lucide="info" class="w-4 h-4" id="toast-icon"></i>
+
+
+    <!-- =========================================================
+         TOAST
+         ========================================================= -->
+
+    <div
+        id="notification-toast"
+        class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 translate-y-20 opacity-0 z-50 border border-slate-800"
+    >
+
+        <div
+            class="p-1 bg-indigo-600/20 text-indigo-400 rounded-lg"
+        >
+
+            <i
+                data-lucide="info"
+                class="w-4 h-4"
+            ></i>
+
         </div>
-        <span class="text-xs font-bold tracking-wide" id="toast-message">Mesej Sistem</span>
+
+
+        <span
+            id="toast-message"
+            class="text-xs font-bold tracking-wide"
+        >
+            Mesej Sistem
+        </span>
+
     </div>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
 
     <script>
-        // Pautan Google Apps Script Web App (Dipautkan ke pautan live sebenar yang betul)
-        const API_URL = "https://script.google.com/macros/s/AKfycbxnLojWqq-UfY-JO-6yD2g_zhz9JbsyV9pbjtbiLS2CEMf0DjAvsrncCRhqOqNdtSA/exec";
 
-        const MONTHS = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEP", "OKT"];
+
+        // =========================================================
+        // GOOGLE APPS SCRIPT WEB APP
+        // URL DIKEKALKAN SAMA
+        // =========================================================
+
+        const API_URL =
+            "https://script.google.com/macros/s/AKfycbxnLojWqq-UfY-JO-6yD2g_zhz9JbsyV9pbjtbiLS2CEMf0DjAvsrncCRhqOqNdtSA/exec";
+
+
+        // =========================================================
+        // BULAN
+        // =========================================================
+
+        const MONTHS = [
+
+            "JAN",
+            "FEB",
+            "MAC",
+            "APR",
+            "MEI",
+            "JUN",
+            "JUL",
+            "OGOS",
+            "SEP",
+            "OKT"
+
+        ];
+
+
+        // =========================================================
+        // GLOBAL
+        // =========================================================
 
         let members = [];
-        let activeFilter = 'semua';
+
+        let activeFilter = "semua";
+
         let currentOpenBil = null;
 
-        function getTargetFee(kategori, nama = "") {
-            const upperName = (nama || "").toUpperCase();
-            if (upperName.includes("NUUR SHARIZAH")) {
-                return 30; // Hanya yuran Jan & Feb sahaja (RM15 * 2) sebelum berpindah
-            }
-            if (upperName.includes("NORAMIRA") && upperName.includes("IDRIS")) {
-                return 120; // Masuk Mac (RM15 * 8 bulan)
-            }
-            return kategori === 'Guru' ? 200 : 150;
-        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            syncFromAPI(); // Jalankan penyegerakan data live sejurus selepas dimuatkan
-        });
 
-        function parseRawMembers(rawArray) {
-            return rawArray.map(m => {
-                const baseTarget = getTargetFee(m.kategori, m.nama);
-                
-                // Algoritma Pintar: Mengesan tunggakan tahun lepas berdasarkan perbezaan sasaran
-                let bakiVal = 0;
-                if (m.baki_2025 !== undefined && m.baki_2025 > 0) {
-                    bakiVal = m.baki_2025;
-                } else if (m.target_override && m.target_override > baseTarget) {
-                    bakiVal = m.target_override - baseTarget;
-                } else if (m.nama.toUpperCase().includes("NUR SHAHIRA AINA")) {
-                    bakiVal = 80; // Sandaran paksa untuk kes khas 2025
+        // =========================================================
+        // FORMAT RM
+        // =========================================================
+
+        function formatRM(value) {
+
+            const number =
+                Number(value) || 0;
+
+
+            return number.toLocaleString(
+                "ms-MY",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
                 }
+            );
 
-                return {
-                    bil: m.bil,
-                    nama: m.nama.toUpperCase(),
-                    kategori: m.kategori,
-                    total: m.total,
-                    status: m.status,
-                    baki_2025: bakiVal,
-                    target_override: m.target_override || (baseTarget + bakiVal),
-                    monthly: m.monthly || null
-                };
-            });
         }
 
-        function initDashboard() {
-            renderTable(members);
-            updateKPIs();
+
+
+        // =========================================================
+        // SEMAK AINA
+        // =========================================================
+
+        function isNurShahiraAina(nama) {
+
+            const upperName =
+                String(nama || "")
+                    .toUpperCase()
+                    .trim();
+
+
+            return (
+                upperName.includes(
+                    "NUR SHAHIRA AINA"
+                ) ||
+                upperName.includes(
+                    "SHAHIRA AINA"
+                )
+            );
+
         }
 
-        // Segerakkan data sebenar secara real-time dari Google Sheets
-        async function syncFromAPI() {
-            const badge = document.getElementById('sync-badge');
-            const statusText = document.getElementById('sync-status-text');
-            const dot = document.getElementById('status-indicator-dot');
-            const syncIcon = document.getElementById('sync-icon');
-            const tbody = document.getElementById('table-body');
-            
-            // Putar icon pusingan segerak
-            syncIcon.classList.add('rotate-180', 'animate-spin');
-            
-            badge.className = "flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600 shadow-sm";
-            dot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
-            statusText.innerText = "Menghubung...";
 
-            try {
-                // Gunakan cache buster untuk mengelakkan pelayar daripada memegang data lama
-                const cacheBusterUrl = API_URL + "?_cb=" + new Date().getTime();
-                
-                const response = await fetch(cacheBusterUrl, { 
-                    method: 'GET',
-                    redirect: 'follow'
+
+        // =========================================================
+        // SASARAN YURAN
+        // =========================================================
+
+        function getTargetFee(
+            kategori,
+            nama = ""
+        ) {
+
+            const upperName =
+                String(nama || "")
+                    .toUpperCase();
+
+
+            // =====================================================
+            // AINA
+            // TIADA TUNGGAKAN 2025
+            // =====================================================
+
+            if (
+                isNurShahiraAina(
+                    upperName
+                )
+            ) {
+
+                return (
+                    kategori === "Guru"
+                        ? 200
+                        : 150
+                );
+
+            }
+
+
+            // =====================================================
+            // NUUR SHARIZAH
+            // =====================================================
+
+            if (
+                upperName.includes(
+                    "NUUR SHARIZAH"
+                )
+            ) {
+
+                return 30;
+
+            }
+
+
+            // =====================================================
+            // NORAMIRA
+            // =====================================================
+
+            if (
+                upperName.includes(
+                    "NORAMIRA"
+                ) &&
+                upperName.includes(
+                    "IDRIS"
+                )
+            ) {
+
+                return 120;
+
+            }
+
+
+            // =====================================================
+            // STANDARD
+            // =====================================================
+
+            return (
+                kategori === "Guru"
+                    ? 200
+                    : 150
+            );
+
+        }
+
+
+
+        // =========================================================
+        // DOM READY
+        // =========================================================
+
+        window.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                lucide.createIcons();
+
+                syncFromAPI();
+
+            }
+        );
+
+
+
+        // =========================================================
+        // PARSE DATA
+        // =========================================================
+
+        function parseRawMembers(
+            rawArray
+        ) {
+
+            return rawArray
+                .map(m => {
+
+                    const nama =
+                        String(
+                            m.nama || ""
+                        )
+                        .toUpperCase()
+                        .trim();
+
+
+                    const kategori =
+                        m.kategori ||
+                        "Guru";
+
+
+                    const total =
+                        Number(m.total) || 0;
+
+
+                    const isAina =
+                        isNurShahiraAina(
+                            nama
+                        );
+
+
+                    const baseTarget =
+                        getTargetFee(
+                            kategori,
+                            nama
+                        );
+
+
+                    let baki2025 = 0;
+
+                    let finalTarget =
+                        baseTarget;
+
+
+                    // =================================================
+                    // AINA
+                    // =================================================
+
+                    if (isAina) {
+
+                        // ABAIKAN SEMUA DATA TUNGGAKAN 2025
+                        baki2025 = 0;
+
+                        // ABAIKAN target_override lama
+                        finalTarget =
+                            baseTarget;
+
+                    }
+
+
+                    // =================================================
+                    // AHLI LAIN
+                    // =================================================
+
+                    else {
+
+                        if (
+                            m.baki_2025 !== undefined &&
+                            Number(m.baki_2025) > 0
+                        ) {
+
+                            baki2025 =
+                                Number(
+                                    m.baki_2025
+                                );
+
+                        }
+
+                        else if (
+                            m.target_override &&
+                            Number(
+                                m.target_override
+                            ) > baseTarget
+                        ) {
+
+                            baki2025 =
+                                Number(
+                                    m.target_override
+                                ) -
+                                baseTarget;
+
+                        }
+
+
+                        finalTarget =
+                            Number(
+                                m.target_override
+                            ) > 0
+
+                                ? Number(
+                                    m.target_override
+                                )
+
+                                : (
+                                    baseTarget +
+                                    baki2025
+                                );
+
+                    }
+
+
+                    return {
+
+                        bil:
+                            m.bil,
+
+                        nama:
+                            nama,
+
+                        kategori:
+                            kategori,
+
+                        total:
+                            total,
+
+                        status:
+                            m.status || "Tunggakan",
+
+                        baki_2025:
+                            baki2025,
+
+                        target_override:
+                            finalTarget,
+
+                        monthly:
+                            m.monthly || null
+
+                    };
+
                 });
 
-                if (!response.ok) throw new Error("Maklum balas pelayan tidak stabil.");
-                const json = await response.json();
-                
-                if (json.status === "success" && json.data) {
-                    members = parseRawMembers(json.data);
-                    initDashboard();
-                    
-                    dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-none";
-                    statusText.innerText = "Data Live Aktif";
-                    badge.className = "flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-100 text-[11px] font-bold text-emerald-600 shadow-sm";
-                    showToast("Penyegerakan Google Sheet Berjaya!");
-                } else {
-                    throw new Error(json.message || "Gagal membaca rekod.");
+        }
+
+
+
+        // =========================================================
+        // INIT
+        // =========================================================
+
+        function initDashboard() {
+
+            renderTable(
+                members
+            );
+
+            updateKPIs();
+
+        }
+
+
+
+        // =========================================================
+        // SYNC GOOGLE SHEET
+        // =========================================================
+
+        async function syncFromAPI() {
+
+            const badge =
+                document.getElementById(
+                    "sync-badge"
+                );
+
+
+            const statusText =
+                document.getElementById(
+                    "sync-status-text"
+                );
+
+
+            const dot =
+                document.getElementById(
+                    "status-indicator-dot"
+                );
+
+
+            const syncIcon =
+                document.getElementById(
+                    "sync-icon"
+                );
+
+
+            const tbody =
+                document.getElementById(
+                    "table-body"
+                );
+
+
+            // =====================================================
+            // LOADING
+            // =====================================================
+
+            syncIcon.classList.add(
+                "animate-spin"
+            );
+
+
+            badge.className =
+                "flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600 shadow-sm";
+
+
+            dot.className =
+                "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+
+
+            statusText.innerText =
+                "Menghubung...";
+
+
+            try {
+
+                // =================================================
+                // CACHE BUSTER
+                // =================================================
+
+                const cacheBusterUrl =
+                    API_URL +
+                    "?_cb=" +
+                    Date.now();
+
+
+                const response =
+                    await fetch(
+                        cacheBusterUrl,
+                        {
+                            method: "GET",
+                            cache: "no-store",
+                            redirect: "follow"
+                        }
+                    );
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+                        "Pelayan tidak memberikan respons yang sah."
+                    );
+
                 }
-            } catch (error) {
-                console.error("Ralat API Live:", error);
-                
-                dot.className = "w-2.5 h-2.5 rounded-full bg-rose-500 animate-none";
-                statusText.innerText = "Sambungan Gagal";
-                badge.className = "flex items-center gap-2 px-3 py-2 rounded-xl bg-rose-50 border border-rose-100 text-[11px] font-bold text-rose-600 shadow-sm";
-                
+
+
+                const json =
+                    await response.json();
+
+
+                if (
+                    json.status !==
+                    "success"
+                ) {
+
+                    throw new Error(
+                        json.message ||
+                        "Gagal membaca data Google Sheet."
+                    );
+
+                }
+
+
+                if (
+                    !Array.isArray(
+                        json.data
+                    )
+                ) {
+
+                    throw new Error(
+                        "Format data API tidak sah."
+                    );
+
+                }
+
+
+                // =================================================
+                // DATA TERKINI
+                // =================================================
+
+                members =
+                    parseRawMembers(
+                        json.data
+                    );
+
+
+                // =================================================
+                // UPDATE DASHBOARD
+                // =================================================
+
+                initDashboard();
+
+
+                // =================================================
+                // SUCCESS
+                // =================================================
+
+                dot.className =
+                    "w-2.5 h-2.5 rounded-full bg-emerald-500";
+
+
+                statusText.innerText =
+                    "Data Live Aktif";
+
+
+                badge.className =
+                    "flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-100 text-[11px] font-bold text-emerald-600 shadow-sm";
+
+
+                showToast(
+                    "Data Google Sheet berjaya disegerakkan."
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Ralat API:",
+                    error
+                );
+
+
+                dot.className =
+                    "w-2.5 h-2.5 rounded-full bg-rose-500";
+
+
+                statusText.innerText =
+                    "Sambungan Gagal";
+
+
+                badge.className =
+                    "flex items-center gap-2 px-3 py-2 rounded-xl bg-rose-50 border border-rose-100 text-[11px] font-bold text-rose-600 shadow-sm";
+
+
                 tbody.innerHTML = `
+
                     <tr>
-                        <td colspan="7" class="py-16 text-center text-rose-600">
-                            <div class="max-w-md mx-auto space-y-3 p-4">
-                                <div class="p-3 bg-rose-50 text-rose-600 rounded-full inline-block">
-                                    <i data-lucide="wifi-off" class="w-6 h-6"></i>
+
+                        <td
+                            colspan="7"
+                            class="py-16 text-center"
+                        >
+
+                            <div
+                                class="max-w-md mx-auto space-y-3 p-4"
+                            >
+
+                                <div
+                                    class="p-3 bg-rose-50 text-rose-600 rounded-full inline-block"
+                                >
+
+                                    <i
+                                        data-lucide="wifi-off"
+                                        class="w-6 h-6"
+                                    ></i>
+
                                 </div>
-                                <h4 class="font-extrabold text-sm uppercase tracking-tight">Gagal Menghubungkan Google Sheet</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed">
-                                    Papan pemuka tidak dapat menarik data daripada Google Apps Script secara langsung. Ini biasanya berlaku kerana:<br>
-                                    1. <strong>CORS disekat oleh pelayar</strong> dalam mod pratonton (preview).<br>
-                                    2. Tetapan keselamatan Web App di Google Apps Script belum ditetapkan kepada <strong>"Anyone"</strong>.<br>
-                                    3. Versi Web App belum di-deploy semula selepas perubahan kod.
+
+
+                                <h4
+                                    class="font-extrabold text-sm uppercase tracking-tight text-rose-600"
+                                >
+                                    Gagal Menghubungkan Google Sheet
+                                </h4>
+
+
+                                <p
+                                    class="text-xs text-slate-500 leading-relaxed"
+                                >
+
+                                    Dashboard tidak dapat mendapatkan data terkini daripada Google Apps Script.
+
+                                    <br><br>
+
+                                    Pastikan Web App telah di-deploy semula dan tetapan akses ialah
+
+                                    <strong>
+                                        Anyone
+                                    </strong>.
+
                                 </p>
-                                <button onclick="syncFromAPI()" class="mt-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl transition-all shadow-md">
+
+
+                                <button
+                                    onclick="syncFromAPI()"
+                                    class="mt-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl transition-all shadow-md"
+                                >
                                     Cuba Segerakkan Semula
                                 </button>
+
                             </div>
+
                         </td>
+
                     </tr>
+
                 `;
+
+
                 lucide.createIcons();
-                showToast("Penyegerakan Gagal! Rujuk jadual.");
-            } finally {
-                setTimeout(() => {
-                    syncIcon.classList.remove('rotate-180', 'animate-spin');
-                }, 500);
+
+
+                showToast(
+                    "Penyegerakan gagal."
+                );
+
             }
+
+
+            finally {
+
+                setTimeout(
+                    () => {
+
+                        syncIcon.classList.remove(
+                            "animate-spin"
+                        );
+
+                    },
+                    500
+                );
+
+            }
+
         }
+
+
+
+        // =========================================================
+        // RENDER TABLE
+        // =========================================================
 
         function renderTable(data) {
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
 
-            if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-16 text-center text-slate-400 font-medium">Tiada rekod ahli dijumpai untuk kriteria ini.</td></tr>`;
-                document.getElementById('showing-count').innerText = 0;
-                document.getElementById('total-count').innerText = members.length;
+            const tbody =
+                document.getElementById(
+                    "table-body"
+                );
+
+
+            tbody.innerHTML = "";
+
+
+            if (
+                data.length === 0
+            ) {
+
+                tbody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="py-16 text-center text-slate-400 font-medium"
+                        >
+                            Tiada rekod ahli dijumpai untuk kriteria ini.
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                document.getElementById(
+                    "showing-count"
+                ).innerText = 0;
+
+
+                document.getElementById(
+                    "total-count"
+                ).innerText =
+                    members.length;
+
+
                 return;
+
             }
 
-            data.forEach((member) => {
-                const target = member.target_override;
-                const percent = target > 0 ? Math.min(Math.round((member.total / target) * 100), 100) : 100;
-                const hasBaki2025 = member.baki_2025 > 0;
-                
-                let statusBadge = '';
-                let progressColor = 'bg-slate-200';
-                
-                if (member.status === 'Selesai' || percent >= 100) {
-                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Lunas</span>`;
-                    progressColor = 'bg-emerald-500';
-                } else if (member.status === 'Separa' || (member.total > 0 && member.total < target)) {
-                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>Separa</span>`;
-                    progressColor = 'bg-amber-500';
-                } else if (member.status === 'Pindah') {
-                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>Pindah</span>`;
-                    progressColor = 'bg-indigo-500';
-                } else {
-                    statusBadge = `<span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Belum Selesai</span>`;
-                    progressColor = 'bg-rose-500';
-                }
 
-                const catBadge = member.kategori === 'Guru' 
-                    ? `<span class="text-[10px] text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg font-bold border border-slate-200/40">GURU</span>`
-                    : `<span class="text-[10px] text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg font-bold border border-slate-200/40">AKP</span>`;
+            data.forEach(
+                member => {
 
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-indigo-50/20 cursor-pointer transition-all duration-150 border-b border-slate-100 select-none";
-                tr.onclick = () => openDrawer(member.bil);
+                    const target =
+                        Number(
+                            member.target_override
+                        ) || 0;
 
-                tr.innerHTML = `
-                    <td class="py-4.5 px-6 text-center font-bold text-slate-400">#${member.bil}</td>
-                    <td class="py-4.5 px-6">
-                        <div class="font-bold text-slate-900 tracking-tight">
-                            ${member.nama}
-                            ${hasBaki2025 ? `
-                                <div class="inline-flex items-center gap-1 text-[9px] text-rose-600 font-extrabold uppercase mt-1 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded ml-2">
-                                    <i data-lucide="alert-circle" class="w-3 h-3 shrink-0"></i> Baki 2025: RM${member.baki_2025}
-                                </div>
-                            ` : ''}
-                        </div>
-                    </td>
-                    <td class="py-4.5 px-6 text-center">${catBadge}</td>
-                    <td class="py-4.5 px-6 text-right font-extrabold text-slate-900">RM ${member.total.toFixed(2)}</td>
-                    <td class="py-4.5 px-6 text-right font-extrabold text-slate-400">RM ${target.toFixed(2)}</td>
-                    <td class="py-4.5 px-6">
-                        <div class="flex items-center gap-2.5 justify-center">
-                            <div class="w-24 bg-slate-100 rounded-full h-1.5 overflow-hidden shadow-inner">
-                                <div class="${progressColor} h-1.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+
+                    const total =
+                        Number(
+                            member.total
+                        ) || 0;
+
+
+                    const percent =
+                        target > 0
+
+                            ? Math.min(
+                                Math.round(
+                                    (
+                                        total /
+                                        target
+                                    ) * 100
+                                ),
+                                100
+                            )
+
+                            : 100;
+
+
+                    const hasBaki2025 =
+                        !isNurShahiraAina(
+                            member.nama
+                        ) &&
+                        Number(
+                            member.baki_2025
+                        ) > 0;
+
+
+                    let statusBadge =
+                        "";
+
+
+                    let progressColor =
+                        "bg-slate-200";
+
+
+                    // =================================================
+                    // LUNAS
+                    // =================================================
+
+                    if (
+                        member.status ===
+                            "Selesai" ||
+                        total >= target
+                    ) {
+
+                        statusBadge = `
+
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100"
+                            >
+
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                                ></span>
+
+                                Lunas
+
+                            </span>
+
+                        `;
+
+
+                        progressColor =
+                            "bg-emerald-500";
+
+                    }
+
+
+                    // =================================================
+                    // SEPARA
+                    // =================================================
+
+                    else if (
+                        member.status ===
+                            "Separa" ||
+                        (
+                            total > 0 &&
+                            total < target
+                        )
+                    ) {
+
+                        statusBadge = `
+
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100"
+                            >
+
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"
+                                ></span>
+
+                                Separa
+
+                            </span>
+
+                        `;
+
+
+                        progressColor =
+                            "bg-amber-500";
+
+                    }
+
+
+                    // =================================================
+                    // PINDAH
+                    // =================================================
+
+                    else if (
+                        member.status ===
+                        "Pindah"
+                    ) {
+
+                        statusBadge = `
+
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100"
+                            >
+
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-indigo-500"
+                                ></span>
+
+                                Pindah
+
+                            </span>
+
+                        `;
+
+
+                        progressColor =
+                            "bg-indigo-500";
+
+                    }
+
+
+                    // =================================================
+                    // TUNGGAKAN
+                    // =================================================
+
+                    else {
+
+                        statusBadge = `
+
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100"
+                            >
+
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-rose-500"
+                                ></span>
+
+                                Belum Selesai
+
+                            </span>
+
+                        `;
+
+
+                        progressColor =
+                            "bg-rose-500";
+
+                    }
+
+
+                    // =================================================
+                    // CATEGORY
+                    // =================================================
+
+                    const catBadge =
+                        member.kategori ===
+                        "Guru"
+
+                            ? `
+
+                                <span
+                                    class="text-[10px] text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg font-bold border border-slate-200/40"
+                                >
+                                    GURU
+                                </span>
+
+                            `
+
+                            : `
+
+                                <span
+                                    class="text-[10px] text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg font-bold border border-slate-200/40"
+                                >
+                                    AKP
+                                </span>
+
+                            `;
+
+
+                    // =================================================
+                    // ROW
+                    // =================================================
+
+                    const tr =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    tr.className =
+                        "hover:bg-indigo-50/20 cursor-pointer transition-all duration-150 border-b border-slate-100 select-none fade-in";
+
+
+                    tr.onclick =
+                        () =>
+                            openDrawer(
+                                member.bil
+                            );
+
+
+                    tr.innerHTML = `
+
+                        <td
+                            class="py-4 px-6 text-center font-bold text-slate-400"
+                        >
+                            #${member.bil}
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6"
+                        >
+
+                            <div
+                                class="font-bold text-slate-900 tracking-tight"
+                            >
+
+                                ${member.nama}
+
+
+                                ${
+                                    hasBaki2025
+
+                                        ? `
+
+                                            <div
+                                                class="inline-flex items-center gap-1 text-[9px] text-rose-600 font-extrabold uppercase mt-1 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded ml-2"
+                                            >
+
+                                                <i
+                                                    data-lucide="alert-circle"
+                                                    class="w-3 h-3 shrink-0"
+                                                ></i>
+
+                                                Baki 2025:
+                                                RM${formatRM(member.baki_2025)}
+
+                                            </div>
+
+                                        `
+
+                                        : ""
+                                }
+
                             </div>
-                            <span class="text-[11px] font-extrabold text-slate-500 min-w-[28px] text-right">${percent}%</span>
-                        </div>
-                    </td>
-                    <td class="py-4.5 px-6 text-center">${statusBadge}</td>
-                `;
-                tbody.appendChild(tr);
-            });
+
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6 text-center"
+                        >
+                            ${catBadge}
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6 text-right font-extrabold text-slate-900"
+                        >
+
+                            RM
+                            ${formatRM(total)}
+
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6 text-right font-extrabold text-slate-400"
+                        >
+
+                            RM
+                            ${formatRM(target)}
+
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6"
+                        >
+
+                            <div
+                                class="flex items-center gap-2.5 justify-center"
+                            >
+
+                                <div
+                                    class="w-24 bg-slate-100 rounded-full h-1.5 overflow-hidden shadow-inner"
+                                >
+
+                                    <div
+                                        class="${progressColor} h-1.5 rounded-full transition-all duration-500"
+                                        style="width: ${percent}%"
+                                    ></div>
+
+                                </div>
+
+
+                                <span
+                                    class="text-[11px] font-extrabold text-slate-500 min-w-[28px] text-right"
+                                >
+                                    ${percent}%
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+                        <td
+                            class="py-4 px-6 text-center"
+                        >
+                            ${statusBadge}
+                        </td>
+
+                    `;
+
+
+                    tbody.appendChild(
+                        tr
+                    );
+
+                }
+            );
+
 
             lucide.createIcons();
-            document.getElementById('showing-count').innerText = data.length;
-            document.getElementById('total-count').innerText = members.length;
+
+
+            document.getElementById(
+                "showing-count"
+            ).innerText =
+                data.length;
+
+
+            document.getElementById(
+                "total-count"
+            ).innerText =
+                members.length;
+
         }
+
+
+
+        // =========================================================
+        // FILTER
+        // =========================================================
 
         function applyFilters() {
-            const searchVal = document.getElementById('search-bar').value.toLowerCase();
-            const filtered = members.filter(member => {
-                const namaAhli = (member.nama || "").toLowerCase();
-                const matchesSearch = namaAhli.includes(searchVal) || member.kategori.toLowerCase().includes(searchVal);
-                
-                let matchesTab = true;
-                if (activeFilter !== 'semua') {
-                    if (activeFilter === 'Guru' || activeFilter === 'AKP') {
-                        matchesTab = member.kategori === activeFilter;
-                    } else if (activeFilter === 'Selesai') {
-                        matchesTab = member.status === 'Selesai' || member.total >= member.target_override;
-                    } else if (activeFilter === 'Tunggakan') {
-                        matchesTab = member.status === 'Tunggakan' && member.total === 0;
-                    } else {
-                        matchesTab = member.status === activeFilter;
+
+            const searchVal =
+                document.getElementById(
+                    "search-bar"
+                ).value
+                .toLowerCase()
+                .trim();
+
+
+            const filtered =
+                members.filter(
+                    member => {
+
+                        const nama =
+                            String(
+                                member.nama || ""
+                            ).toLowerCase();
+
+
+                        const kategori =
+                            String(
+                                member.kategori || ""
+                            ).toLowerCase();
+
+
+                        const matchesSearch =
+                            nama.includes(
+                                searchVal
+                            ) ||
+                            kategori.includes(
+                                searchVal
+                            );
+
+
+                        let matchesTab =
+                            true;
+
+
+                        if (
+                            activeFilter !==
+                            "semua"
+                        ) {
+
+                            if (
+                                activeFilter ===
+                                    "Guru" ||
+                                activeFilter ===
+                                    "AKP"
+                            ) {
+
+                                matchesTab =
+                                    member.kategori ===
+                                    activeFilter;
+
+                            }
+
+
+                            else if (
+                                activeFilter ===
+                                "Selesai"
+                            ) {
+
+                                matchesTab =
+                                    member.status ===
+                                        "Selesai" ||
+                                    member.total >=
+                                        member.target_override;
+
+                            }
+
+
+                            else if (
+                                activeFilter ===
+                                "Tunggakan"
+                            ) {
+
+                                matchesTab =
+                                    member.status ===
+                                        "Tunggakan" &&
+                                    member.total ===
+                                        0;
+
+                            }
+
+
+                            else {
+
+                                matchesTab =
+                                    member.status ===
+                                    activeFilter;
+
+                            }
+
+                        }
+
+
+                        return (
+                            matchesSearch &&
+                            matchesTab
+                        );
+
                     }
-                }
-                return matchesSearch && matchesTab;
-            });
-            renderTable(filtered);
+                );
+
+
+            renderTable(
+                filtered
+            );
+
         }
 
-        function filterStatus(status, element) {
-            activeFilter = status;
-            document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.className = "filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100";
-            });
-            element.className = "filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-indigo-600 text-white shadow-md shadow-indigo-100";
+
+
+        // =========================================================
+        // FILTER BUTTON
+        // =========================================================
+
+        function filterStatus(
+            status,
+            element
+        ) {
+
+            activeFilter =
+                status;
+
+
+            document
+                .querySelectorAll(
+                    ".filter-tab"
+                )
+                .forEach(
+                    tab => {
+
+                        tab.className =
+                            "filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100";
+
+                    }
+                );
+
+
+            element.className =
+                "filter-tab px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all bg-indigo-600 text-white shadow-md shadow-indigo-100";
+
+
             applyFilters();
+
         }
+
+
+
+        // =========================================================
+        // KPI
+        // =========================================================
 
         function updateKPIs() {
-            const activeMembers = members.filter(m => m.status !== 'Pindah');
-            const total = activeMembers.length;
-            const guruCount = activeMembers.filter(m => m.kategori === 'Guru').length;
-            const akpCount = activeMembers.filter(m => m.kategori === 'AKP').length;
-            
-            const selesai = activeMembers.filter(m => m.status === 'Selesai' || m.total >= m.target_override).length;
-            
-            let currentCollected = 0;
-            let totalExpected = 0;
-            let activeUnpaidCount = 0;
 
-            members.forEach(m => {
-                currentCollected += m.total;
-                totalExpected += m.target_override;
-                if (m.total < m.target_override && m.status !== 'Pindah') {
-                    activeUnpaidCount++;
-                }
-            });
+            const activeMembers =
+                members.filter(
+                    m =>
+                        m.status !==
+                        "Pindah"
+                );
 
-            const totalRemaining = Math.max(0, totalExpected - currentCollected);
 
-            document.getElementById('kpi-total').innerText = total;
-            document.getElementById('kpi-breakdown').innerText = `${guruCount} Guru | ${akpCount} AKP`;
-            
-            document.getElementById('kpi-selesai').innerText = selesai;
-            const selesaiPercent = total > 0 ? Math.round((selesai / total) * 100) : 0;
-            document.getElementById('kpi-selesai-percent').innerText = `${selesaiPercent}% daripada ahli aktif`;
-            document.getElementById('kpi-selesai-bar').style.width = `${selesaiPercent}%`;
+            const total =
+                activeMembers.length;
 
-            document.getElementById('kpi-tunggakan-rm').innerText = `RM ${totalRemaining.toLocaleString('ms-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            document.getElementById('kpi-tunggakan-count').innerText = `${activeUnpaidCount} Orang Belum Selesai`;
-            
-            const debtPercent = totalExpected > 0 ? Math.max(0, Math.min(100, Math.round((totalRemaining / totalExpected) * 100))) : 100;
-            document.getElementById('kpi-tunggakan-bar').style.width = `${debtPercent}%`;
 
-            document.getElementById('kpi-collected-rm').innerText = `RM ${currentCollected.toLocaleString('ms-MY', { minimumFractionDigits: 2 })}`;
-            document.getElementById('kpi-target-rm').innerText = `/ RM ${totalExpected.toLocaleString('ms-MY')}`;
+            const guruCount =
+                activeMembers.filter(
+                    m =>
+                        m.kategori ===
+                        "Guru"
+                ).length;
 
-            const overallPercent = totalExpected > 0 ? Math.round((currentCollected / totalExpected) * 100) : 0;
-            document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
-        }
 
-        // Bahagian pengagihan yuran bulanan (Jan-Okt) yang dipermudahkan
-        function generateDynamicMonthsPaid(member) {
-            const name = member.nama.toUpperCase();
-            const cat = member.kategori;
-            const totalPaid = member.total;
-            const baki2025 = member.baki_2025 || 0;
-            const rate = (cat === "Guru") ? 20 : 15;
-            
-            const months = Array(10).fill().map(() => ({ paid: 0, rate: rate, active: true }));
+            const akpCount =
+                activeMembers.filter(
+                    m =>
+                        m.kategori ===
+                        "AKP"
+                ).length;
 
-            // Kes Khas A: Telah Berpindah
-            if (name.includes("NUUR SHARIZAH")) {
-                let remaining = totalPaid;
-                for (let i = 0; i < 2; i++) {
-                    let allocated = Math.min(remaining, 15);
-                    months[i] = { paid: allocated, rate: 15, active: true };
-                    remaining -= allocated;
-                }
-                for (let i = 2; i < 10; i++) {
-                    months[i] = { paid: 0, rate: 0, active: false }; 
-                }
-                return months;
-            }
 
-            // Kes Khas B: Prorata Kemasukan Mac
-            if (name.includes("NORAMIRA") && name.includes("IDRIS")) {
-                months[0] = { paid: 0, rate: 0, active: false };
-                months[1] = { paid: 0, rate: 0, active: false };
-                
-                let remaining = totalPaid;
-                for (let i = 2; i < 10; i++) {
-                    let allocated = Math.min(remaining, 15);
-                    months[i] = { paid: allocated, rate: 15, active: true };
-                    remaining -= allocated;
-                }
-                return months;
-            }
+            const selesai =
+                activeMembers.filter(
+                    m =>
+                        m.status ===
+                            "Selesai" ||
+                        m.total >=
+                            m.target_override
+                ).length;
 
-            // Bagi kes standard (termasuk Nur Shahira Aina yang ada tunggakan baki 2025)
-            // Tolak yuran baki 2025 terlebih dahulu sebelum baki disalurkan ke yuran bulanan semasa
-            let remainingForCurrentYear = Math.max(totalPaid - baki2025, 0);
-            for (let i = 0; i < 10; i++) {
-                let allocated = Math.min(remainingForCurrentYear, rate);
-                months[i] = { paid: allocated, rate: rate, active: true };
-                remainingForCurrentYear -= allocated;
-            }
-            return months;
-        }
 
-        function openDrawer(bil) {
-            const member = members.find(m => m.bil === bil);
-            if (!member) return;
+            let currentCollected =
+                0;
 
-            currentOpenBil = bil;
-            const target = member.target_override;
-            const arrears = Math.max(target - member.total, 0);
 
-            document.getElementById('detail-member-name').innerText = member.nama;
-            document.getElementById('detail-member-cat').innerText = member.kategori;
-            document.getElementById('detail-member-total').innerText = `RM ${member.total.toFixed(2)}`;
-            document.getElementById('detail-member-arrears').innerText = `RM ${arrears.toFixed(2)}`;
+            let totalExpected =
+                0;
 
-            const statusEl = document.getElementById('detail-member-status');
-            statusEl.innerText = member.status;
-            if (member.status === 'Selesai' || member.total >= target) {
-                statusEl.className = "text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
-            } else if (member.status === 'Separa') {
-                statusEl.className = "text-[10px] bg-amber-50 text-amber-700 border border-amber-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
-            } else if (member.status === 'Pindah') {
-                statusEl.className = "text-[10px] bg-indigo-50 text-indigo-700 border border-indigo-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
-            } else {
-                statusEl.className = "text-[10px] bg-rose-50 text-rose-700 border border-rose-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
-            }
 
-            const noticeBox = document.getElementById('detail-notice-box');
-            if (member.baki_2025 > 0) {
-                document.getElementById('notice-box-amount').innerText = `RM ${member.baki_2025.toFixed(2)}`;
-                noticeBox.classList.remove('hidden');
-            } else {
-                noticeBox.classList.add('hidden');
-            }
-            
-            // Render pecahan yuran semasa sebenar ahli
-            updateMonthsContainer(member);
+            let activeUnpaidCount =
+                0;
 
-            const drawer = document.getElementById('detail-drawer');
-            const drawerContainer = document.getElementById('drawer-container');
-            
-            drawer.classList.remove('hidden');
-            setTimeout(() => {
-                drawerContainer.classList.remove('translate-x-full');
-            }, 50);
-            
-            lucide.createIcons();
-        }
 
-        function updateMonthsContainer(member) {
-            const monthsData = generateDynamicMonthsPaid(member);
-            const monthsContainer = document.getElementById('detail-months-container');
-            monthsContainer.innerHTML = '';
+            members.forEach(
+                m => {
 
-            MONTHS.forEach((mName, idx) => {
-                const mInfo = monthsData[idx];
-                const div = document.createElement('div');
-                
-                if (!mInfo.active) {
-                    div.className = "bg-slate-100 border border-slate-200/50 p-2.5 rounded-xl text-center text-slate-400 select-none opacity-60";
-                    div.innerHTML = `
-                        <div class="text-[10px] font-bold text-slate-400">${mName}</div>
-                        <div class="text-[9px] font-semibold mt-1">N/A</div>
-                    `;
-                } else {
-                    const isFullyPaid = mInfo.paid >= mInfo.rate && mInfo.rate > 0;
-                    const isPartiallyPaid = mInfo.paid > 0 && mInfo.paid < mInfo.rate;
-                    
-                    let nodeStyle = 'border-slate-200 text-slate-500 bg-white';
-                    let amountStr = 'RM 0';
-                    
-                    if (isFullyPaid) {
-                        nodeStyle = 'border-emerald-200 bg-emerald-50 text-emerald-700 font-bold';
-                        amountStr = `RM ${mInfo.paid}`;
-                    } else if (isPartiallyPaid) {
-                        nodeStyle = 'border-amber-200 bg-amber-50/70 text-amber-700 font-bold';
-                        amountStr = `RM ${mInfo.paid}`;
+                    currentCollected +=
+                        Number(
+                            m.total
+                        ) || 0;
+
+
+                    totalExpected +=
+                        Number(
+                            m.target_override
+                        ) || 0;
+
+
+                    if (
+                        m.total <
+                            m.target_override &&
+                        m.status !==
+                            "Pindah"
+                    ) {
+
+                        activeUnpaidCount++;
+
                     }
 
-                    div.className = `border p-2.5 rounded-xl text-center flex flex-col justify-center items-center transition duration-150 ${nodeStyle}`;
-                    div.innerHTML = `
-                        <div class="text-[10px] font-extrabold tracking-wider">${mName}</div>
-                        <div class="text-[9px] mt-1">${amountStr}</div>
-                    `;
                 }
-                monthsContainer.appendChild(div);
-            });
+            );
+
+
+            const totalRemaining =
+                Math.max(
+                    0,
+                    totalExpected -
+                        currentCollected
+                );
+
+
+            // =====================================================
+            // KPI AHLI
+            // =====================================================
+
+            document.getElementById(
+                "kpi-total"
+            ).innerText =
+                total;
+
+
+            document.getElementById(
+                "kpi-breakdown"
+            ).innerText =
+                `${guruCount} Guru | ${akpCount} AKP`;
+
+
+            // =====================================================
+            // KPI LUNAS
+            // =====================================================
+
+            document.getElementById(
+                "kpi-selesai"
+            ).innerText =
+                selesai;
+
+
+            const selesaiPercent =
+                total > 0
+
+                    ? Math.round(
+                        (
+                            selesai /
+                            total
+                        ) * 100
+                    )
+
+                    : 0;
+
+
+            document.getElementById(
+                "kpi-selesai-percent"
+            ).innerText =
+                `${selesaiPercent}% daripada ahli aktif`;
+
+
+            document.getElementById(
+                "kpi-selesai-bar"
+            ).style.width =
+                `${selesaiPercent}%`;
+
+
+            // =====================================================
+            // KPI TUNGGAKAN
+            // =====================================================
+
+            document.getElementById(
+                "kpi-tunggakan-rm"
+            ).innerText =
+                `RM ${formatRM(
+                    totalRemaining
+                )}`;
+
+
+            document.getElementById(
+                "kpi-tunggakan-count"
+            ).innerText =
+                `${activeUnpaidCount} Orang Belum Selesai`;
+
+
+            const debtPercent =
+                totalExpected > 0
+
+                    ? Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            Math.round(
+                                (
+                                    totalRemaining /
+                                    totalExpected
+                                ) * 100
+                            )
+                        )
+                    )
+
+                    : 0;
+
+
+            document.getElementById(
+                "kpi-tunggakan-bar"
+            ).style.width =
+                `${debtPercent}%`;
+
+
+            // =====================================================
+            // KPI DANA
+            // =====================================================
+
+            document.getElementById(
+                "kpi-collected-rm"
+            ).innerText =
+                `RM ${formatRM(
+                    currentCollected
+                )}`;
+
+
+            document.getElementById(
+                "kpi-target-rm"
+            ).innerText =
+                `/ RM ${totalExpected.toLocaleString(
+                    "ms-MY"
+                )}`;
+
+
+            const overallPercent =
+                totalExpected > 0
+
+                    ? Math.min(
+                        Math.round(
+                            (
+                                currentCollected /
+                                totalExpected
+                            ) * 100
+                        ),
+                        100
+                    )
+
+                    : 0;
+
+
+            document.getElementById(
+                "overall-progress-bar"
+            ).style.width =
+                `${overallPercent}%`;
+
         }
+
+
+
+        // =========================================================
+        // BULANAN
+        // =========================================================
+
+        function generateDynamicMonthsPaid(
+            member
+        ) {
+
+            const name =
+                String(
+                    member.nama || ""
+                ).toUpperCase();
+
+
+            const cat =
+                member.kategori;
+
+
+            const totalPaid =
+                Number(
+                    member.total
+                ) || 0;
+
+
+            const rate =
+                cat === "Guru"
+                    ? 20
+                    : 15;
+
+
+            const months =
+                Array(10)
+                    .fill(null)
+                    .map(
+                        () => ({
+                            paid: 0,
+                            rate: rate,
+                            active: true
+                        })
+                    );
+
+
+            // =====================================================
+            // AINA
+            // =====================================================
+            //
+            // Bayaran Aina dianggap bayaran tahun 2026.
+            // TIADA tolak RM80 tunggakan 2025.
+            // =====================================================
+
+            if (
+                isNurShahiraAina(
+                    name
+                )
+            ) {
+
+                let remaining =
+                    totalPaid;
+
+
+                for (
+                    let i = 0;
+                    i < 10;
+                    i++
+                ) {
+
+                    const allocated =
+                        Math.min(
+                            remaining,
+                            rate
+                        );
+
+
+                    months[i] = {
+
+                        paid:
+                            allocated,
+
+                        rate:
+                            rate,
+
+                        active:
+                            true
+
+                    };
+
+
+                    remaining -=
+                        allocated;
+
+
+                    if (
+                        remaining <= 0
+                    ) {
+
+                        break;
+
+                    }
+
+                }
+
+
+                return months;
+
+            }
+
+
+
+            // =====================================================
+            // NUUR SHARIZAH
+            // =====================================================
+
+            if (
+                name.includes(
+                    "NUUR SHARIZAH"
+                )
+            ) {
+
+                let remaining =
+                    totalPaid;
+
+
+                for (
+                    let i = 0;
+                    i < 2;
+                    i++
+                ) {
+
+                    const allocated =
+                        Math.min(
+                            remaining,
+                            15
+                        );
+
+
+                    months[i] = {
+
+                        paid:
+                            allocated,
+
+                        rate:
+                            15,
+
+                        active:
+                            true
+
+                    };
+
+
+                    remaining -=
+                        allocated;
+
+                }
+
+
+                for (
+                    let i = 2;
+                    i < 10;
+                    i++
+                ) {
+
+                    months[i] = {
+
+                        paid:
+                            0,
+
+                        rate:
+                            0,
+
+                        active:
+                            false
+
+                    };
+
+                }
+
+
+                return months;
+
+            }
+
+
+
+            // =====================================================
+            // NORAMIRA
+            // =====================================================
+
+            if (
+                name.includes(
+                    "NORAMIRA"
+                ) &&
+                name.includes(
+                    "IDRIS"
+                )
+            ) {
+
+                months[0] = {
+
+                    paid:
+                        0,
+
+                    rate:
+                        0,
+
+                    active:
+                        false
+
+                };
+
+
+                months[1] = {
+
+                    paid:
+                        0,
+
+                    rate:
+                        0,
+
+                    active:
+                        false
+
+                };
+
+
+                let remaining =
+                    totalPaid;
+
+
+                for (
+                    let i = 2;
+                    i < 10;
+                    i++
+                ) {
+
+                    const allocated =
+                        Math.min(
+                            remaining,
+                            15
+                        );
+
+
+                    months[i] = {
+
+                        paid:
+                            allocated,
+
+                        rate:
+                            15,
+
+                        active:
+                            true
+
+                    };
+
+
+                    remaining -=
+                        allocated;
+
+                }
+
+
+                return months;
+
+            }
+
+
+
+            // =====================================================
+            // AHLI LAIN
+            // =====================================================
+
+            const baki2025 =
+                Number(
+                    member.baki_2025
+                ) || 0;
+
+
+            let remainingForCurrentYear =
+                Math.max(
+                    totalPaid -
+                        baki2025,
+                    0
+                );
+
+
+            for (
+                let i = 0;
+                i < 10;
+                i++
+            ) {
+
+                const allocated =
+                    Math.min(
+                        remainingForCurrentYear,
+                        rate
+                    );
+
+
+                months[i] = {
+
+                    paid:
+                        allocated,
+
+                    rate:
+                        rate,
+
+                    active:
+                        true
+
+                };
+
+
+                remainingForCurrentYear -=
+                    allocated;
+
+            }
+
+
+            return months;
+
+        }
+
+
+
+        // =========================================================
+        // OPEN DRAWER
+        // =========================================================
+
+        function openDrawer(
+            bil
+        ) {
+
+            const member =
+                members.find(
+                    m =>
+                        String(m.bil) ===
+                        String(bil)
+                );
+
+
+            if (!member) {
+
+                return;
+
+            }
+
+
+            currentOpenBil =
+                bil;
+
+
+            const target =
+                Number(
+                    member.target_override
+                ) || 0;
+
+
+            const total =
+                Number(
+                    member.total
+                ) || 0;
+
+
+            const arrears =
+                Math.max(
+                    target -
+                        total,
+                    0
+                );
+
+
+            document.getElementById(
+                "detail-member-name"
+            ).innerText =
+                member.nama;
+
+
+            document.getElementById(
+                "detail-member-cat"
+            ).innerText =
+                member.kategori;
+
+
+            document.getElementById(
+                "detail-member-total"
+            ).innerText =
+                `RM ${formatRM(
+                    total
+                )}`;
+
+
+            document.getElementById(
+                "detail-member-arrears"
+            ).innerText =
+                `RM ${formatRM(
+                    arrears
+                )}`;
+
+
+            const statusEl =
+                document.getElementById(
+                    "detail-member-status"
+                );
+
+
+            statusEl.innerText =
+                member.status;
+
+
+            // =====================================================
+            // STATUS STYLE
+            // =====================================================
+
+            if (
+                member.status ===
+                    "Selesai" ||
+                total >= target
+            ) {
+
+                statusEl.className =
+                    "text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
+
+            }
+
+            else if (
+                member.status ===
+                "Separa"
+            ) {
+
+                statusEl.className =
+                    "text-[10px] bg-amber-50 text-amber-700 border border-amber-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
+
+            }
+
+            else if (
+                member.status ===
+                "Pindah"
+            ) {
+
+                statusEl.className =
+                    "text-[10px] bg-indigo-50 text-indigo-700 border border-indigo-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
+
+            }
+
+            else {
+
+                statusEl.className =
+                    "text-[10px] bg-rose-50 text-rose-700 border border-rose-100 px-2.5 py-1 rounded font-bold uppercase tracking-wider";
+
+            }
+
+
+
+            // =====================================================
+            // NOTIS TUNGGAKAN
+            // =====================================================
+
+            const noticeBox =
+                document.getElementById(
+                    "detail-notice-box"
+                );
+
+
+            // AINA TIDAK AKAN MENUNJUKKAN NOTIS 2025
+
+            if (
+                !isNurShahiraAina(
+                    member.nama
+                ) &&
+                Number(
+                    member.baki_2025
+                ) > 0
+            ) {
+
+                document.getElementById(
+                    "notice-box-amount"
+                ).innerText =
+                    `RM ${formatRM(
+                        member.baki_2025
+                    )}`;
+
+
+                noticeBox.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+            else {
+
+                noticeBox.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            // =====================================================
+            // MONTHS
+            // =====================================================
+
+            updateMonthsContainer(
+                member
+            );
+
+
+            // =====================================================
+            // OPEN
+            // =====================================================
+
+            const drawer =
+                document.getElementById(
+                    "detail-drawer"
+                );
+
+
+            const drawerContainer =
+                document.getElementById(
+                    "drawer-container"
+                );
+
+
+            drawer.classList.remove(
+                "hidden"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    drawerContainer.classList.remove(
+                        "translate-x-full"
+                    );
+
+                },
+                50
+            );
+
+
+            lucide.createIcons();
+
+        }
+
+
+
+        // =========================================================
+        // UPDATE MONTHS
+        // =========================================================
+
+        function updateMonthsContainer(
+            member
+        ) {
+
+            const monthsData =
+                generateDynamicMonthsPaid(
+                    member
+                );
+
+
+            const container =
+                document.getElementById(
+                    "detail-months-container"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+            MONTHS.forEach(
+                (monthName, index) => {
+
+                    const info =
+                        monthsData[index];
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    if (
+                        !info.active
+                    ) {
+
+                        div.className =
+                            "bg-slate-100 border border-slate-200/50 p-2.5 rounded-xl text-center text-slate-400 select-none opacity-60";
+
+
+                        div.innerHTML = `
+
+                            <div
+                                class="text-[10px] font-bold text-slate-400"
+                            >
+                                ${monthName}
+                            </div>
+
+
+                            <div
+                                class="text-[9px] font-semibold mt-1"
+                            >
+                                N/A
+                            </div>
+
+                        `;
+
+                    }
+
+                    else {
+
+                        const fullyPaid =
+                            info.paid >=
+                                info.rate &&
+                            info.rate > 0;
+
+
+                        const partiallyPaid =
+                            info.paid > 0 &&
+                            info.paid <
+                                info.rate;
+
+
+                        let style =
+                            "border-slate-200 text-slate-500 bg-white";
+
+
+                        let amount =
+                            "RM 0.00";
+
+
+                        if (
+                            fullyPaid
+                        ) {
+
+                            style =
+                                "border-emerald-200 bg-emerald-50 text-emerald-700 font-bold";
+
+
+                            amount =
+                                `RM ${formatRM(
+                                    info.paid
+                                )}`;
+
+                        }
+
+                        else if (
+                            partiallyPaid
+                        ) {
+
+                            style =
+                                "border-amber-200 bg-amber-50/70 text-amber-700 font-bold";
+
+
+                            amount =
+                                `RM ${formatRM(
+                                    info.paid
+                                )}`;
+
+                        }
+
+
+                        div.className =
+                            `border p-2.5 rounded-xl text-center flex flex-col justify-center items-center transition duration-150 ${style}`;
+
+
+                        div.innerHTML = `
+
+                            <div
+                                class="text-[10px] font-extrabold tracking-wider"
+                            >
+                                ${monthName}
+                            </div>
+
+
+                            <div
+                                class="text-[9px] mt-1"
+                            >
+                                ${amount}
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    container.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        // =========================================================
+        // CLOSE DRAWER
+        // =========================================================
 
         function closeDrawer() {
-            const drawerContainer = document.getElementById('drawer-container');
-            const drawer = document.getElementById('detail-drawer');
-            
-            drawerContainer.classList.add('translate-x-full');
-            setTimeout(() => {
-                drawer.classList.add('hidden');
-            }, 300);
+
+            const drawerContainer =
+                document.getElementById(
+                    "drawer-container"
+                );
+
+
+            const drawer =
+                document.getElementById(
+                    "detail-drawer"
+                );
+
+
+            drawerContainer.classList.add(
+                "translate-x-full"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    drawer.classList.add(
+                        "hidden"
+                    );
+
+                },
+                300
+            );
+
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('notification-toast');
-            document.getElementById('toast-message').innerText = message;
-            
-            toast.className = `fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 z-50 translate-y-0 opacity-100 border border-slate-800`;
 
-            setTimeout(() => {
-                toast.className = `fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 z-50 translate-y-20 opacity-0 border border-slate-800`;
-            }, 3000);
+
+        // =========================================================
+        // TOAST
+        // =========================================================
+
+        function showToast(
+            message
+        ) {
+
+            const toast =
+                document.getElementById(
+                    "notification-toast"
+                );
+
+
+            document.getElementById(
+                "toast-message"
+            ).innerText =
+                message;
+
+
+            toast.className =
+                "fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 z-50 translate-y-0 opacity-100 border border-slate-800";
+
+
+            setTimeout(
+                () => {
+
+                    toast.className =
+                        "fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 z-50 translate-y-20 opacity-0 border border-slate-800";
+
+                },
+                3000
+            );
+
         }
+
+
+
+        // =========================================================
+        // EXPORT CSV
+        // =========================================================
 
         function exportToCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "ID BIL,NAMA AHLI,KATEGORI,DIBAYAR_RM,SASARAN_RM,STATUS,JAN,FEB,MAC,APR,MEI,JUN,JUL,OGOS,SEP,OKT\n";
 
-            members.forEach(m => {
-                const target = m.target_override;
-                const monthsData = generateDynamicMonthsPaid(m);
-                const monthsStr = monthsData.map(v => v.active ? v.paid : "N/A").join(",");
-                
-                const row = `"${m.bil}","${m.nama}","${m.kategori}","${m.total}","${target}","${m.status}",${monthsStr}`;
-                csvContent += row + "\n";
-            });
+            let csvContent =
+                "data:text/csv;charset=utf-8,";
 
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "LAPORAN_YURAN_SASERA_2026.csv");
-            document.body.appendChild(link);
+
+            csvContent +=
+                "ID BIL,NAMA AHLI,KATEGORI,DIBAYAR_RM,SASARAN_RM,STATUS,JAN,FEB,MAC,APR,MEI,JUN,JUL,OGOS,SEP,OKT\n";
+
+
+            members.forEach(
+                member => {
+
+                    const target =
+                        Number(
+                            member.target_override
+                        ) || 0;
+
+
+                    const monthsData =
+                        generateDynamicMonthsPaid(
+                            member
+                        );
+
+
+                    const monthsStr =
+                        monthsData
+                            .map(
+                                item =>
+                                    item.active
+                                        ? item.paid
+                                        : "N/A"
+                            )
+                            .join(",");
+
+
+                    const row =
+                        `"${member.bil}","${member.nama}","${member.kategori}","${member.total}","${target}","${member.status}",${monthsStr}`;
+
+
+                    csvContent +=
+                        row +
+                        "\n";
+
+                }
+            );
+
+
+            const encodedUri =
+                encodeURI(
+                    csvContent
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.setAttribute(
+                "href",
+                encodedUri
+            );
+
+
+            link.setAttribute(
+                "download",
+                "LAPORAN_YURAN_SASERA_2026.csv"
+            );
+
+
+            document.body.appendChild(
+                link
+            );
+
+
             link.click();
-            document.body.removeChild(link);
-            showToast("Muat Turun Fail CSV Berjaya!");
+
+
+            document.body.removeChild(
+                link
+            );
+
+
+            showToast(
+                "Muat turun fail CSV berjaya!"
+            );
+
         }
+
     </script>
+
 </body>
+
 </html>
